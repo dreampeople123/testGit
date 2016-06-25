@@ -1,0 +1,29 @@
+#copyright p{
+	color:#B0810B;
+	font-size:14px;
+	font-weight:bold;
+	text-align:center;
+	padding-top:0px;
+	padding-left:0px;
+	margin:0px;
+	height:100%;
+}
+
+#copyright a{
+	display:inline-block;
+	height:32px;
+	line-height:32px;
+	text-decoration:none;
+	color:#B0810B;
+	font-size:14px;
+	font-weight:bold;
+	padding-left:30px;
+	background:url("../images/yc2.ico") no-repeat left center;
+}
+#newslogo{
+	background:#B0810B url("../images/logo.gif") no-repeat 10px center;
+	background-size:contain;
+	padding:0px;
+	margin:0px;
+	height:100px;
+}

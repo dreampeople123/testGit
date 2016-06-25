@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<!-- 设置上传文件的大小 -->
+	<constant name="struts.multipart.maxSize" value="1048576000" />
+	<!-- 把struts的action对象交给spring容器管理 -->
+	<constant name="struts.objectFactory " value="spring" />
+
+	<package name="default" namespace="/" extends="json-default">
+		<action name="myFileUpload" class="uploadAction" method="upload">
+			<!-- 文件上传的拦截器 -->
+			<interceptor-ref name="fileUpload">
+				<!-- 限定文件扩展名 -->
+				<param name="allowedExtensions">jpg,png,mp4</param>
+				<!-- 限定文件类型 <param name="allowedTypes">image/jpeg</param> -->
+			</interceptor-ref>
+			<!-- 基本拦截器 -->
+			<interceptor-ref name="basicStack" />
+		</action>
+
+		<action name="*_*" class="{1}Action" method="{2}">
+			<result>/front/login.jsp</result>
+			<result name="adminLogin" type="redirect">/back/index.jsp</result><!-- 管理员登录(重定向解决路径问题) -->
+			<result name="login_result">/front/zhuye.jsp</result><!-- 用户登录 -->
+			<!-- 删改用户返回的json（int :1或0） -->
+			<result name="users_result" type="json">
+				<param name="root">users_result</param>
+			</result>
+			<!-- 根据课程编号查询课程信息 -->
+			<result name="showCoursesByCno">/front/keepLearning.jsp</result>
+
+			<!-- 到course.jsp中去 -->
+			<result name="findAllTypes">/front/course.jsp</result>
+
+			<!-- 根据课程方向名查找课程信息 -->
+			<result name="findCourseByCdirname" type="json">
+				<param name="root">courses</param>
+			</result>
+			<!-- 根据课程类型名查找课程信息 -->
+			<result name="showCourseByCtypename" type="json">
+				<param name="root">courses</param>
+			</result>
+			<!-- 根据课程难易程度查找课程信息 -->
+			<result name="showCourseByDname" type="json">
+				<param name="root">courses</param>
+			</result>
+			
+			<!-- 查询视频界面的课程信息 -->
+			<result name="shipinInfo" type="json">
+				<param name="root">status</param>
+			</result>
+
+			<result>/front/login.jsp</result>
+			<!-- 管理员登录(重定向解决路径问题) -->
+			<result name="adminLogin" type="redirect">/back/index.jsp</result>
+			<!-- 用户登录 -->
+			<result name="login_result">/front/zhuye.jsp</result>
+
+			<!-- 删改用户返回的json（int :1或0） -->
+			<result name="users_result" type="json">
+				<param name="root">users_result</param>
+			</result>
+
+			<result>/front/login.jsp</result>
+			<result type="redirect" name="adminLogin">/back/index.jsp</result><!-- 管理员登录 -->
+
+			<!-- 社区界面获取信息 -->
+			<result name="findCommunityInfo">/front/Community.jsp</result>
+
+			<!-- 社区点击问题详情页面跳转 -->
+			<result name="gotoQuestion">/front/Question.jsp</result>
+
+			<!-- upload.jsp获取所有的方向名 -->
+			<result name="findAllDir" type="json">
+				<param name="root">cTypes</param>
+			</result>
+			<!-- upload.jsp获取课程类别 -->
+			<result name="findTypeByDir" type="json">
+				<param name="root">cTypes</param>
+			</result>
+			<!-- upload.jsp获取所有的难易度 -->
+			<result name="getDeeply" type="json">
+				<param name="root">uoloadDeeplys</param>
+			</result>
+			<!-- upload.jsp获取该教师维护的所有课程 -->
+			<result name="getTeacherCourse" type="json">
+				<param name="root">couerses</param>
+			</result>
+			<!-- upload.jsp上传新的课程 -->
+			<result name="uploadCourse" type="json">
+				<param name="root">result</param>
+			</result>
+			<!-- upload.jsp上传新的章节 -->
+			<result name="uploadChapter" type="json">
+				<param name="root">result</param>
+			</result>
+
+
+			<!-- 删除评论信息 -->
+			<result name="delComments" type="json">
+				<param name="root">result</param>
+			</result>
+			<!-- 找到所有的评论信息 -->
+			<result name="getAllComment" type="json">
+				<param name="root">comments</param>
+			</result>
+
+			<!-- 查询课程的id和名字 -->
+			<result name="findCourseNameAndId" type="json">
+				<param name="root">courses</param>
+			</result>
+
+			<!-- 获取所有的章节 -->
+			<result name="findAllChapters" type="json">
+				<param name="root">chapters</param>
+			</result>
+
+			<!-- 找到所有的课程类别 -->
+			<result name="findAllCourseType" type="json">
+				<param name="root">cTypes</param>
+			</result>
+			<!-- 找到所有的ask信息 -->
+			<result name="getAskInfo" type="json">
+				<param name="root">asks</param>
+			</result>
+			<!-- 找到问题的回答 -->
+			<result name="getAskAnswer" type="json">
+				<param name="root">answers</param>
+			</result>
+			<!-- 删除回答的返回结果1:成功 0:失败 -->
+			<result name="delAskInfo" type="json">
+				<param name="root">result</param>
+			</result>
+
+			<!-- 查询所有的管理员返回的json -->
+			<result name="admininfo" type="json">
+				<param name="root">admins</param>
+			</result>
+			<!-- 增删改管理员返回的json（int :1或0） -->
+			<result name="admin_result" type="json">
+				<param name="root">admin_result</param>
+			</result>
+			<!-- 查询所有的用户信息 -->
+			<result name="usersInfo" type="json">
+				<param name="root">users</param>
+			</result>
+			<!-- 删改用户返回的json（int :1或0） -->
+			<result name="users_result" type="json">
+				<param name="root">users_result</param>
+			</result>
+			<!-- 查询所有的用户课程信息 -->
+			<result name="ucourseInfo" type="json">
+				<param name="root">ucourses</param>
+			</result>
+			<!-- 保存用户课程返回的json（int :1或0） -->
+			<result name="ucourse_result" type="json">
+				<param name="root">ucourse_result</param>
+			</result>
+
+			<!-- 查找所有的chapter -->
+			<result name="findAllChapter" type="json">
+				<param name="root">chapters</param>
+			</result>
+
+			<!-- 查询所有的chapter通过chName或cno -->
+			<result name="findChapterBycNoOrchName" type="json">
+				<param name="root">chapters</param>
+			</result>
+
+			<!-- 某一章节的信息 -->
+			<result name="showChapterDetail" type="json">
+				<param name="root">chapters</param>
+			</result>
+
+			<!-- 修改章节的状态 -->
+			<result name="updateChapterStatus" type="json">
+				<param name="root">chStatu</param>
+			</result>
+
+			<!-- 删除章节信息 -->
+			<result name="delChapterInfo" type="json">
+				<param name="root">chStatu</param>
+			</result>
+
+			<!-- 查找所有课程难易度 -->
+			<result name="findAllDeeplyInfo" type="json">
+				<param name="root">deeplys</param>
+			</result>
+
+			<!-- 添加课程难易度信息 -->
+			<result name="addDeeplyInfo" type="json">
+				<param name="root">status</param>
+			</result>
+
+			<!-- 删除课程难易程度信息 -->
+			<result name="delDeeplyInfo" type="json">
+				<param name="root">status</param>
+			</result>
+
+			<!-- 修改课程难易程度 信息 -->
+			<result name="updateDeeplyInfo" type="json">
+				<param name="root">status</param>
+			</result>
+
+			<!-- 课程具体信息 -->
+			<result name="findCourseInfo" type="json">
+				<param name="root">coursesInfo</param>
+			</result>
+
+			<!-- 根据课程名或课程类别名查找 课程信息 -->
+			<result name="findCourseByInfo" type="json">
+				<param name="root">coursesInfo</param>
+			</result>
+
+			<!-- 修改课程信息 -->
+			<result name="updateCourseInfo" type="json">
+				<param name="root">status</param>
+			</result>
+
+			<!-- 删除课程类别信息 -->
+			<result name="delCourseTypeInfo" type="json">
+				<param name="root">status</param>
+			</result>
+
+			<!-- 更改课程类别信息 -->
+			<result name="updateCourseTypeInfo" type="json">
+				<param name="root">status</param>
+			</result>
+
+			<!-- 添加课程类别信息 -->
+			<result name="addCourseTypeInfo" type="json">
+				<param name="root">status</param>
+			</result>
+
+			<!-- 根据课程名模糊查询课程信息 -->
+			<result name="findCourseByCname" type="json">
+				<param name="root">status</param>
+			</result>
+
+			<!-- 查询视频界面的课程信息 -->
+			<!-- <result name="shipinInfo" type="json"> <param name="root">status</param> 
+				</result> -->
+			<!-- 查询视频界面保存评论返回的课程信息 -->
+			<result name="shipin" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+	</package>
+</struts>

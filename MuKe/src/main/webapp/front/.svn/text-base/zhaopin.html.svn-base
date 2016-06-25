@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta content="Text/html;charset=UTF-8" http-equiv="Content-Type">
+ <meta charset="utf-8">
+<title>讲师招募</title>
+<link href="css/zp.css" rel="stylesheet">
+<link rel="stylesheet" href="CSS/header.css" type="text/css" />
+<link rel="stylesheet" href="CSS/footer.css" type="text/css" />
+<script>
+
+</script>
+</head>
+
+<body>
+	<div id="header">
+    <div id="logo">
+    	<a href="zhuye.html" target="_self" class="hide-text">慕课网</a>
+    </div>
+    <div id="choose">
+        <a href="#" class="menu-ctrl"><i class="icon-menu"></i></a>
+        <ul>
+            <li><a href="#" target="_self">课程</a></li>
+            <li><a href="#" target="_self">社区</a></li>
+        </ul>
+    </div>
+    <div id="login">
+        <ul class="header-unlogin clearfix">
+            <li class="header-signin"><a href="#" id="js-signin-btn">登录</a></li>
+            <li class="header-signup"><a href="#" id="js-signup-btn">注册</a></li>
+        </ul>
+    </div>
+    <div id="search_out" data-search="top-banner">
+        <input id="search-input-out" data-suggest-trigger="suggest-trigger" placeholder="请输入想搜索的内容..." autocomplete="off" type="text" onFocus="change2White(this)" onBlur="change2Gray(this)">
+        <ul class="search-area-result" data-suggest-result="suggest-result"></ul>
+        <input id="search_btn_out" data-search-btn="search-btn" type="button">
+    </div>
+	</div>
+
+    <div id="main">
+        	<div id="left">
+                <ul class="other-left l" style="border-bottom:1px solid #ccc; margin-left:30px; cursor:pointer;">
+                    <li>
+                        <a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于我们</span></a>
+                    </li>
+                    <li>
+                        <a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;团队介绍</span></a>
+                    </li>
+                    <li>
+                        <a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人才招聘</span></a>
+                    </li>
+                    <li>
+                        <a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;讲师招聘</span></a>
+                    </li>
+                    <li>
+                        <a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系我们</span></a>
+                    </li>
+                    <li>
+                        <a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;意见反馈</span></a>
+                    </li>
+                    <li>
+                        <a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;友情链接</span></a>
+                    </li>
+                 </ul>
+             </div>
+            <div id="right">
+             	<div id="pjax-container">
+                	<div class="others">
+                    	<h3 style="border-bottom:1px solid #ccc; margin-left:20px;">讲师招聘</h3>
+                        
+                        <div class="space-side">
+                        	<p>&nbsp;&nbsp;&nbsp;想试水尝尝网络讲师的滋味？快加入慕课网讲师队伍吧！</p>
+                            <div class="job-block">
+                            	<h4>&nbsp;&nbsp;&nbsp;我们希望你：</h4>
+                                <ul style="list-style-type:none">
+                                	<li>&nbsp;&nbsp;&nbsp;- 热衷分享：</li>
+                                    <li>&nbsp;&nbsp;&nbsp;- 有3年以上的大型项目开发经验：</li>
+                                    <li>&nbsp;&nbsp;&nbsp;- 至少精通前端开发技术，Html5(游戏)，PHP,3G开发，JAVA，Python,cocos2d-x,Unity 3D开发技术中的一项：</li>
+                                </ul>
+                                <h4>&nbsp;&nbsp;&nbsp;你的收获：</h4>
+                                <ul  style="list-style-type:none">
+                                	<li>&nbsp;&nbsp;&nbsp;- 额外收入：</li>
+                                    <li>&nbsp;&nbsp;&nbsp;- 技术的沉淀与分享：</li>
+                                    <li>&nbsp;&nbsp;&nbsp;- 迅速增长的粉丝及业内知名度：</li>
+                                 </ul>
+                                 <br/>
+                                 <a class="btn btn-green" target="_blank" style="background-color:#090;margin-left:10px;font-size:20px;">立即加入</a>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+             </div>
+    </div>
+     
+     
+     
+  
+  <div id="footer">
+    <div class="footer_intro l">
+        <div class="footer_link">
+            <ul>
+                <li><a href="#" target="_blank">网站首页</a></li>
+                <li><a href="#" target="_blank">人才招聘</a></li>
+                <li><a href="#" target="_blank">联系我们</a></li>
+                <li><a href="#" target="_blank">高校联盟</a></li>
+                <li><a href="#" target="_blank">关于我们</a></li>
+                <li><a href="#" target="_blank">讲师招募</a></li>
+                <li><a href="#" target="_blank">意见反馈</a></li>
+                <li><a href="#" target="_blank">友情链接</a></li>
+            </ul>
+        </div>
+        <br/>
+        <p>
+        	<span style="color:#999">Copyright  2015 imooc.com All Rights Reserved | 京ICP备 13046642号-2</span>
+        </p>
+    </div>
+</div>
+
+
+     </body>
+     
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.muke.mapper.CTypeMapper" >
+	<!-- 找到所有的课程类别 -->
+	<select id="findAllCourseType" resultType="CType">
+		select * from ctype
+	</select>
+	
+	<!-- 找到所有的方向 -->
+	<select id="findAllDir" resultType="CType">
+		select distinct ctDirname from ctype
+	</select>
+	
+	<!-- 根据方向找到所有的类别 -->
+	<select id="findTypeByDir" parameterType="string" resultType="CType">
+		select ctName,ctNo from ctype where ctDirname=#{key}
+	</select>
+	
+	<!-- 删除课程类别信息 -->
+	<update id="delCourseTypeInfo" parameterType="map">
+	    update ctype set ctStatus=1 where ctNo=#{ctNo}
+	</update>
+	
+	<!-- 更改课程类别信息 -->
+	<update id="updateCourseTypeInfo" parameterType="map">
+	    update ctype set ctName=#{ctName},ctDirname=#{ctDirname},ctStatus=#{ctStatus} where ctNo=#{ctNo}
+	</update>
+	
+	<!-- 添加课程类别信息 -->
+	<insert id="addCourseTypeInfo" parameterType="map">
+	    insert into ctype values(seq_ctype_ctNo.Nextval,#{ctName},#{ctDirname},'','','',2)
+	</insert>
+	
+	<!-- 前台部分 -->
+	<!--根据用户是否关注，学习情况查找所学的课程的课程类型  -->
+	<select id="findByMap" resultType="CType" parameterType="map">
+	select distinct t.ctNo,t.ctName,t.ctDirname  from ucourse u,course c,ctype t 
+	<where>
+			u.cNo=c.cNo and c.ctNo=t.ctNo and u.ucStatus<![CDATA[>]]>1 and u.uNo=#{uNo}
+			<if test="ucAttention>=0">
+				and ucAttention=#{ucAttention}
+			</if>
+			<if test="ucLearnstatus>=0">
+				and ucLearnstatus=#{ucLearnstatus}
+			</if>
+		</where>
+	</select>
+</mapper>

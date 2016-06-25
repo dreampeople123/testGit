@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.muke.mapper.UCourseMapper">
+	<!-- 查询UCourse信息返回到UCourseBean -->
+	<select id="findUcourse" parameterType="UCourseBean" resultType="UCourseBean">
+		select * from (select a.*,rownum rn from (select e.*,d.cName,c.uName,cUpdatetime,cPic from ucourse e,course d,users c 
+		<where>
+			e.uNo=c.uNo and e.cNo=d.cNo and  ucStatus!=1
+			<if test="uName!=null">
+				and uName like '%${uName}%' 
+			</if>
+			<if test="cName!=null">
+				and cName like '%${cName}%' 
+			</if>
+			<if test="uNo!=null">
+				and e.uNo=#{uNo} 
+			</if>
+			<if test="cNo!=null">
+				and e.cNo=#{cNo} 
+			</if>
+			<if test="ctNo!=null and ctNo!=''">
+				and d.ctNo=#{ctNo}
+			</if>
+			<if test="ucAttention>0">
+				and ucAttention=#{ucAttention}
+			</if>
+			<if test="ucLearnstatus>0">
+				and ucLearnstatus=#{ucLearnstatus}
+			</if>
+		</where>
+		order by e.uNo asc) a where rownum<![CDATA[<]]>=(${page}*${rows})) b where rn<![CDATA[>]]>((${page}-1)*${rows})
+	</select>
+	<!-- 查询的总记录数 -->
+	<select id="totalUcourse" parameterType="UCourseBean" resultType="int">
+	select count(*) from (select e.*,d.cName,c.uName from ucourse e,course d,users c 
+			<where>
+			e.uNo=c.uNo and e.cNo=d.cNo and  ucStatus=2 
+			<if test="uName!=null">
+				and uName like '%${uName}%'  
+			</if>
+			<if test="cName!=null">
+				and cName like '%${cName}%'  
+			</if>
+			<if test="ucAttention">
+				and ucAttention=#{ucAttention}  
+			</if>
+			<if test="uNo!=null">
+				and e.uNo=#{uNo}
+			</if>
+			<if test="cNo!=null">
+				and e.cNo=#{cNo}
+			</if>
+			<if test="ctNo!=null  and ctNo!=''">
+				and d.ctNo=#{ctNo}
+			</if>
+				<if test="ucLearnstatus>0">
+				and ucLearnstatus=#{ucLearnstatus}
+			</if>
+		</where>
+	 order by e.uNo)
+	</select>
+	<!-- 保存修改的信息 -->
+	<update id="updateUcourseInfo" parameterType="UCourseBean">
+		update ucourse set ucStatus=#{ucStatus} where uNo=#{uNo} and cNo=(select cNo from course where cName=#{cName})
+	</update>
+	<!-- 查找学习同一课程的同学 -->
+	<select id="findUsBychano" parameterType="Map" resultType="UsersBean">
+	select b.*  from ucourse a,users b where a.uNo=b.uNo and cNo=#{cNo} and a.ucStatus<![CDATA[>]]>1 and a.uNo!=#{uNo}
+	</select> 
+	<!-- 查找学习同一课程的同学的数量 -->
+	<select id="totalChapterno" parameterType="Map" resultType="int">
+		select count(*) from ucourse where cNo=#{cNo} and ucStatus<![CDATA[>]]>1 and uNo!=#{uNo}
+	</select> 
+	<!-- 查找学习这门课程的同学学习的其他课程 -->
+ 	<select id="sameByCno" parameterType="String" resultType="CourseBean">
+		select * from course where cNo in (select distinct cNo from ucourse where uNo in (select a.uNo from ucourse a,users b where a.uNo=b.uNo and cNo=#{cNo}  and a.ucStatus<![CDATA[>]]>1))
+	</select>
+</mapper>

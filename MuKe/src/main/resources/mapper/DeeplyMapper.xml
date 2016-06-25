@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.muke.mapper.DeeplyMapper" >
+	<!-- 获取所有的难易度信息 -->
+	<select id="getDeeply" resultType="Deeply">
+		select * from deeply where dStatus!=1
+	</select>
+
+    <select id="getAllDeeplyInfo" resultType="Deeply" parameterType="map">
+		select * from (select a.*,rownum rn from (select * from deeply where
+		dStatus!=0 order by dNo)a where rownum<![CDATA[<]]>=(${page}*${rows}))b where rn<![CDATA[>]]>(${page}-1)*${rows}
+    </select>
+    
+    <insert id="addDeeplyInfo" parameterType="map">
+        insert into deeply values(seq_deeply_dNo.nextval,#{dName},'','','',#{dStatus})
+    </insert>
+    
+    <update id="updateDeeplyInfo" parameterType="map">
+        update deeply set dName=#{dName},dStatus=#{dStatus} where dNo=#{dNo}
+    </update>
+    
+    <update id="delDeeplyInfo" parameterType="map">
+        update deeply set dStatus=1 where dNo=#{dNo}
+    </update>
+    
+    <select id="findAllDeeply" resultType="Deeply">
+        select * from deeply
+    </select>
+</mapper>

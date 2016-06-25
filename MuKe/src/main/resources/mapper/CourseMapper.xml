@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.muke.mapper.CourseMapper" >
+	<!-- 社区  热门课程bean的map -->
+	<resultMap type="CommunityHotCourseBean" id="CommunityHotCourseBeanMap">
+		<association property="course" column="cno" select="findCourseByNo" />
+	</resultMap>
+	<select id="findCourseByNo" parameterType="string" resultType="Course">
+		select * from course where cno=#{cno}
+	</select>
+	
+	<!-- 根据关注度的排行获取课程信息(获取前三的) -->
+	<select id="findCommunityHotCourse" resultMap="CommunityHotCourseBeanMap">
+		select a.* from(
+			select cno,count(1) as attNum from ucourse where ucAttention=1 group by cno order by count(1) desc) a where rownum<![CDATA[<]]>=3
+	</select>
+
+
+	<!-- 添加新课程 -->
+	<insert id="addNewCourse" parameterType="NewCourseUploadBean">
+		insert into course values(seq_course_cNo.Nextval,#{cName},#{dNo},#{ctNo},#{cUpdatetime},1,#{picPath},#{cProfiles},'','',2)
+		<selectKey keyProperty="cno" keyColumn="cno" order="AFTER" resultType="string">
+			select max(cNo) as cno from course
+		</selectKey>
+	</insert>
+	
+    <select id="getCourseNameAndId" resultType="Course">
+		select cname,cno from course
+    </select>
+    
+    <select id="getCourseInfo" parameterType="map" resultType="CourseBean">
+        select * from (select d.*,rownum rn from (select a.cNo,cName,dName,cPic,cProfiles,ctDirname,ctName,cUpdatetime,cUpstatus,a.cStatus
+		from(select dName,cNo,cName,cPic,cProfiles,ctNo,cUpdatetime,cUpstatus,c.cStatus from deeply e,course c where e.dNo=c.dNo)a,
+		ctype ct where ct.ctNo=a.ctNo)d where cStatus!=0 and rownum<![CDATA[<]]>=10)b where rn<![CDATA[>]]>0
+    </select>
+    
+    <select id="getCourseByInfo" parameterType="map" resultType="CourseBean">
+        select * from (select d.*,rownum rn from (select a.cNo,ct.ctNo,cName,dName,ctDirname,ctName,cUpdatetime,cUpstatus,a.cStatus
+		from(select dName,cNo,cName,ctNo,cUpdatetime,cUpstatus,c.cStatus from deeply e,course c where e.dNo=c.dNo)a,
+		ctype ct where ct.ctNo=a.ctNo)d where cStatus!=0 and rownum<![CDATA[<]]>=10)b
+		<where>
+		    <if test="rn!=null">
+		        rn<![CDATA[>]]>((${page}-1)*${rows})
+		    </if>
+		    <if test="cName!=null">
+		        and cname like '%${cName}%'
+		    </if>
+		    <if test="ctNo!=0">
+		        and ctNo=#{ctNo}
+		    </if>
+		</where>
+    </select>
+    
+    <update id="updateCourseInfo" parameterType="map">
+        update course set cName=#{cName},cUpstatus=#{cUpstatus},cStatus=#{cStatus} where cNo=#{cNo}
+    </update>
+    
+    <!--前台部分 -->
+    
+    <!-- 根据课程名查找课程信息 -->
+    <select id="getCourseByCname" parameterType="map" resultType="CourseBean">
+        select * from (select d.*,rownum rn from (select a.cNo,ct.ctNo,cName,cPic,dName,ctDirname,ctName,cUpdatetime,cUpstatus,a.cStatus
+		from(select dName,cNo,cName,cPic,ctNo,cUpdatetime,cUpstatus,c.cStatus from deeply e,course c where e.dNo=c.dNo)a,
+		ctype ct where ct.ctNo=a.ctNo)d where cStatus!=0 and rownum<![CDATA[<]]>=10)b where cname like '%${cName}%'
+    </select>
+    
+    <!-- 根据课程编号查找课程信息 -->
+    <select id="showCoursesByCno" parameterType="map" resultType="CourseBean">
+        select * from (select d.*,rownum rn from (select a.cNo,ct.ctNo,cName,cPic,dName,ctDirname,ctName,cUpdatetime,cUpstatus,a.cStatus
+		from(select dName,cNo,cName,cPic,ctNo,cUpdatetime,cUpstatus,c.cStatus from deeply e,course c where e.dNo=c.dNo)a,
+		ctype ct where ct.ctNo=a.ctNo)d where cStatus!=0 and rownum<![CDATA[<]]>=10)b where cNo=#{cNo}
+    </select>
+    
+    <!-- 根据课程方向查找课程信息 -->
+    <select id="getCourseByCdirname" parameterType="map" resultType="CourseBean">
+        select * from (select d.*,rownum rn from (select a.cNo,ct.ctNo,cName,cPic,dName,ctDirname,ctName,cUpdatetime,cUpstatus,a.cStatus
+		from(select dName,cNo,cName,cPic,ctNo,cUpdatetime,cUpstatus,c.cStatus from deeply e,course c where e.dNo=c.dNo)a,
+		ctype ct where ct.ctNo=a.ctNo)d where cStatus!=0 and rownum<![CDATA[<]]>=10)b where ctDirname=#{ctDirname}
+    </select>
+    
+    <!-- 根据课程类型名查找课程信息 -->
+    <select id="getCourseByCtname" parameterType="map" resultType="CourseBean">
+        select * from (select d.*,rownum rn from (select a.cNo,ct.ctNo,cName,cPic,dName,ctDirname,ctName,cUpdatetime,cUpstatus,a.cStatus
+		from(select dName,cNo,cName,cPic,ctNo,cUpdatetime,cUpstatus,c.cStatus from deeply e,course c where e.dNo=c.dNo)a,
+		ctype ct where ct.ctNo=a.ctNo)d where cStatus!=0 and rownum<![CDATA[<]]>=10)b where ctName=#{ctName}
+    </select>
+    
+    <!-- 根据课程难易度查找课程信息 -->
+     <select id="getCourseByDname" parameterType="map" resultType="CourseBean">
+        select * from (select d.*,rownum rn from (select a.cNo,ct.ctNo,cName,cPic,dName,ctDirname,ctName,cUpdatetime,cUpstatus,a.cStatus
+		from(select dName,cNo,cName,cPic,ctNo,cUpdatetime,cUpstatus,c.cStatus from deeply e,course c where e.dNo=c.dNo)a,
+		ctype ct where ct.ctNo=a.ctNo)d where cStatus!=0 and rownum<![CDATA[<]]>=10)b where dName=#{dName}
+    </select>
+    <!-- 根据cNo查找课程 -->
+    <select id="findBycno" parameterType="String" resultType="CourseBean">
+    	select * from course where cNo=#{cNo} and cStatus<![CDATA[>]]>1
+    </select>
+</mapper>

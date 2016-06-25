@@ -1,0 +1,100 @@
+<table id="show_news_info" data-options="fit:true"></table>
+<div id="show_news_info_find" style="width:100%,text-align:left">
+	<span>标题：</span><input type="text" name="title" id="show_news_title"/>
+	<span>日期：</span><input name="ndate" id="show_news_ndate" class="easyui-datebox myinput" required/>
+	<span>类型：</span><select name="typeInfo" id="typeInfo">
+		<option value="0">全部</option>
+	</select>
+	<a href="javascript:findNewsInfoByInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">查询</a>
+</div>
+
+<div id="news_show_newsInfo" class="easyui-dialog" title="新闻详细" data-options="fit:true,iconCls:'icon-add',resizable:true,modal:true,closed:true">
+	<form action="" style="padding:20px float:left;display:inline-block;">
+		<label>新闻类型</label><input type="text" id="news_tname_show" class="myinput" readonly="readonly"/><br/><br/>
+		<label>新闻标题:</label><input type="text" name="title" id="news_title_show" class="myinput" readonly="readonly"/><br/><br/>
+		<label>发布日期:</label><input name="ndate" id="news_ndate_show" type="easy-datebox" class="easy-datebox myinput" readonly="readonly" /><br/><br/>
+		<label>新闻作者:</label><input type="text" name="auth" id="news_auth_show" class="myinput" readonly="readonly"/><br/><br/>
+		<label>新闻权重:</label><input class="myinput" name="weight" id="news_weight_show" value="0" readonly="readonly"/><br/><br/>
+		<label>浏览次数:</label><input class="myinput" name="views" id="news_view_show" readonly="readonly" value="0"/><br/><br/>
+		<label>新闻内容</label>
+		<div id="news_content_show">
+		
+		</div><br/><br/>
+		
+	</form>
+	<div style="float:right;width:380px;margin-right:20px;" id="news_pic_show_info">
+		
+	</div>
+</div>
+<script>
+	$.post("../newsTypeServlet",{op:"getAllNewsType"},function(data){
+		var obj=$("#typeInfo");
+		var opt;
+		$.each(data.rows,function(index,item){
+			opt="<option value='"+item.tid+"'>"+item.tname+"</option>";
+			obj.append($(opt));
+		});
+	},"json");
+$(function(){
+	$('#show_news_info').datagrid({
+		url:'../newsServlet',
+		queryParams:{op:"getPageNewsInfo"},
+		fitColumns:true,
+		striped:true,
+		loadMsg:"数据加载中...",
+		pagination:true,
+		rownumbers:true,
+		columns:[[
+			{field:'nids',title:'选择',width:100,align:'center',checkbox:true},
+			{field:'nid',title:'新闻编号',width:100,align:'center'},
+			{field:'title',title:'新闻标题',width:100,align:'center'},
+			{field:'auth',title:'作者',width:100,align:'center'},
+			{field:'views',title:'浏览次数',width:100,align:'center'},
+			{field:'tid',title:'操作',width:100,align:'center',
+				formatter:function(value,rowData,index){//格式化单元格函数
+					return '<a class="icon-search1 icon-padding" href="javascript:showNewsDetail(\''+rowData.nid+'\')">详细</a>';
+				}
+			}
+			
+		]],
+		toolbar:"#show_news_info_find"
+		});
+	});
+	
+	function findNewsInfoByInfo(){
+		var title=$.trim($("#show_news_title").val());
+		var ndate=$("#show_news_ndate").datebox('getValue');
+		var tid=$.trim($("#typeInfo").val());
+		
+		
+		$('#show_news_info').datagrid({
+			url:'../newsServlet',
+			queryParams:{op:"findNewsInfoByInfo",title:title,ndate:ndate,tid:tid}
+		});
+	}
+	
+	function showNewsDetail(nid){
+		$("#news_show_newsInfo").dialog("open");
+		$.post("../newsServlet",{op:"findNewsByNid",nid:nid},function(data){
+			var news=data.rows;
+			$("#news_tname_show").val(news.tname);
+			$("#news_title_show").val(news.title);
+			$("#news_ndate_show").val(news.ndate);
+			$("#news_auth_show").val(news.auth);
+			$("#news_weight_show").val(news.weight);
+			$("#news_view_show").val(news.views);
+			$("#news_content_show").html(news.content);
+			
+			var str="";
+			//console.info(news.ndate);
+			//console.info(news.views);
+			
+			var pics=news.pic.split(",");
+			//console.info(pics);
+			for(var i=0;i<pics.length;i++){
+				str+="<img src='../"+pics[i]+"'width='100px' height='100px'>&nbsp;";
+			}
+			$("#news_pic_show_info").html($(str));//显示图片
+		},"json");
+	}
+</script>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.muke.mapper.AskMapper" >
+	<!-- BackAskBean的resultMap -->
+	<resultMap type="BackAskBean" id="BackAskBeanMap">
+		<id column="aNo" property="aNo"/>
+		<association property="cType" column="ctNo" select="findTypeByNo"/>
+		<association property="user" column="uNo" select="findUserByNo" />
+	</resultMap>
+	<select id="findTypeByNo" parameterType="string" resultType="CType">
+		select * from ctype where ctNo=#{ctNo}
+	</select>
+	<select id="findUserByNo" parameterType="string" resultType="Users">
+		select * from users where uNo=#{uNo}
+	</select>
+	
+	<!-- 获取问答信息(后台) -->
+	<select id="getAskInfo" parameterType="BackAskBean" resultMap="BackAskBeanMap">
+		select * from (select a.*,rownum rn from (select a.* from ask a where  a.aStatus!=1 order by aTime) a where #{pagea}>=rownum) b where rn>#{pageb}
+	</select>
+	
+	<!-- 获取当前的问题的总数量 -->
+	<select id="getAskTotal" parameterType="BackAskBean" resultType="int">
+		select count(1) from ask where aStatus!=1
+		<if test="typeNo != null and typeNo != '0' and typeNo != ''">
+			and ctNo=#{typeNo}
+		</if>
+		<!-- <if test="uNo!=null and uNo!=''">
+		    and a.uNo=#{uNo} 
+		</if> -->
+	</select>
+	
+	<!-- 根据类型找到问题信息 -->
+	<select id="findAskByType" parameterType="BackAskBean" resultMap="BackAskBeanMap">
+		select * from (select a.*,rownum rn from (select a.* from ask a where ctNo=#{typeNo} and a.aStatus!=1 order by aTime) a where #{pagea}>=rownum) b where rn>#{pageb}
+	</select>
+	
+	<!-- 删除ask信息 -->
+	<update id="delAskInfoByNo" parameterType="string">
+		update ask set aStatus=1 where aNo=#{aNo}
+	</update>
+	
+	<!-- 社区问答的map -->
+	<resultMap type="CommunityAskBean" id="CommunityAskBeanMap">
+		<association property="user" column="uno" select="findUserByNo"/>
+		<association property="ask" column="ano" select="findAskByNo"/>
+	</resultMap>
+	<select id="findAskByNo" parameterType="string" resultType="Ask">
+		select * from ask where ano=#{ano}
+	</select>
+	
+	<!-- 获取社区的问答信息 -->
+	<select id="findCommunityAsks" resultMap="CommunityAskBeanMap">
+<!-- 		select * from (select a.*,rownum rn from (select a.ano,a.uno,ct.ctname,count(1) as answerNum from answer an,ask a,ctype ct where a.ano=an.ano and a.astatus!=1 and a.ctno=ct.ctno group by a.ano,a.uno,a.atime,ct.ctname order by to_date(a.atime,'yyyy/MM/dd HH24:MI:ss') desc) a where #{pagea}>=rownum) b where rn>#{pageb}-->	
+	select * from (
+		select a.*,rownum rn from (
+	    	select a.ano,a.answerNum,t.ctname,a.uno from(
+	        	select a.ano,count(an.anno) as answerNum,a.ctno,a.uno from ask a left join answer an on a.ano=an.ano group by a.ano,a.ctno,a.uno,a.atime order by to_date(a.atime,'yyyy/MM/dd HH24:MI:ss') desc) a,ctype t where a.ctno=t.ctno
+	        ) a where #{pagea}>=rownum
+	) b where rn>#{pageb}
+	</select>
+	
+	<!-- 获取社区热门问答 -->
+	<select id="findCommunityHotAsk" resultMap="CommunityAskBeanMap">
+	<!-- select a.* from(
+			select aNo,count(1) as answerNum from answer where anStatus!=1 group by aNo order by count(1) desc) a where rownum<![CDATA[<]]>=3-->
+	select a.* from(
+		select an.aNo,count(1) as answerNum,t.ctname from answer an,ask k,ctype t where an.ano=k.ano and k.ctno= t.ctno and anStatus!=1 group by an.aNo,t.ctname order by count(1) desc) a where rownum<![CDATA[<]]>=3
+	</select>
+	
+	<!-- 获取社区回答雷锋榜 -->
+	<select id="findCommunityHotUser" resultMap="CommunityAskBeanMap">
+		select a.* from(
+			select uNo,count(1) as answerNum from answer where anStatus!=1 group by uNo order by count(1) desc) a where rownum<![CDATA[<]]>=3
+	</select>
+	
+	<!-- 根据编号找到问题详情 -->
+	<select id="findAskBeanByNo" parameterType="string" resultMap="CommunityAskBeanMap">
+		<!-- select a.ano,a.uno,ct.ctname,count(1) as answerNum from answer an,ask a,ctype ct where a.ano=#{aNo} and a.ano=an.ano and a.astatus!=1 and a.ctno=ct.ctno group by a.ano,a.uno,a.atime,ct.ctname order by a.atime -->
+		select a.ano,a.uno,answerNum,t.ctname from (
+			select s.ano,count(n.anno) as answerNum,s.ctno,s.uno from ask s left join answer n on s.ano=n.ano group by s.ano,s.ctno,s.uno
+		) a,ctype t where a.ctno=t.ctno and a.ano=#{aNo}
+	</select>
+	
+	<!-- 添加问题信息 -->
+	<insert id="addCommunityAsk" parameterType="map">
+		insert into ask values(seq_ask_aNo.nextval,#{ctNo},#{uNo},#{aTitle},#{aContent},#{aTime},#{aPic},'','',2)
+	</insert>
+	
+	<!--forntAsk的Map  -->
+	<resultMap type="frontAsk" id="forntAskMap">
+		<association property="lastAnswer" column="last" select="selans" />
+	</resultMap>
+	<!-- AnswerBean的resultMap -->
+	<resultMap type="AnswerBean" id="AnswerBeanMap">
+		<id property="anNo" column="anNo"/>
+		<association property="user" column="uNo" select="findUsersByNo"/>
+	</resultMap>
+	<!-- 查询回答用户 -->
+	<select id="findUsersByNo" parameterType="String" resultType="Users">
+		select * from users where uNo=#{uNo}
+	</select>
+	<!--查找最新的回答  -->
+	<select id="selans" parameterType="String" resultMap="AnswerBeanMap">
+		select * from answer where aNo=#{last} and anNo in (select max(anNo) from  answer where aNo=#{last} )
+	</select>
+		<!-- 查找视频界面的全部问答信息 -->
+	<select id="findForntAsk" parameterType="Map" resultMap="forntAskMap">
+	select a.*,uName, ctName,uPic,ctDirname,
+	(select count(*) from answer asw  where  asw.aNo =a.aNo) answernum,a.aNo last
+	 from ask a, ctype b, users c  
+	 <where>
+	 a.ctNo=b.ctNo and a.uNo=c.uNo and a.aStatus<![CDATA[>]]>1  
+	   <if test="ctNo!=null">
+		      and  a.ctNo=#{ctNo} 
+		    </if>
+	   <if test="uNo!=null">
+		    and    a.uNo=#{uNo} 
+		    </if>
+	 </where>
+	 order by  aNo desc 
+	</select>
+	<!-- 查找视频界面的精华问答信息 -->
+	<select id="findJinAskByCtype" parameterType="Map" resultMap="forntAskMap">
+	select a.*,uName, ctName,uPic,ctDirname,
+	(select count(*) from answer asw  where  asw.aNo =a.aNo) answernum,a.aNo last
+	 from ask a, ctype b, users c where a.ctNo=#{ctNo} and a.ctNo=b.ctNo and a.uNo=c.uNo and a.aStatus<![CDATA[>]]>1 order by  answernum desc 
+	</select>
+	<!-- 在视频界面添加信息 -->
+	<insert id="addAsk" parameterType="Ask">
+		insert into ask values(seq_ask_aNo.nextval,#{ctNo},#{uNo},#{aTitle},#{aContent},#{aTime},'','','',2)
+	</insert>
+</mapper>

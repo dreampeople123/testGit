@@ -1,0 +1,140 @@
+<table id="ask_manager" data-options="fit:true"></table>
+<div class="mytoolbar" id="ask_toolbar" style="width:100%;text-align:left">
+	<a href="javascript:delAskInfo()" class="icon-remove1">删除</a>
+	<span>类型:</span><select id="askType">
+		<option value="0">全部</option>
+	</select>
+	<a href="javascript:findAskByInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+</div>
+<script>
+	var datagrid;
+	var editRow=undefined;
+	
+	$(function(){
+		var op;
+		var flag;
+		datagrid=$('#ask_manager').datagrid({
+			url:'../communityServlet',
+			queryParams:{op:"getAskInfo"},
+			fitColumns:true,
+			striped:true,
+			loadMsg:"数据加载中...",
+			pagination:true,
+			rownumbers:true,
+			sortName:'askno',
+			remoteSort:false,
+			columns:[[
+				{field:'ctypenos',title:'课程类型编号',width:100,align:'center',checkbox:true},
+				{field:'askno',title:'问题编号',width:100,align:'center',sortable:true},
+				{field:'ctypename',title:'类型',width:100,align:'center'},
+				{field:'uno',title:'用户编号',width:100,align:'center'},
+				{field:'asktitle',title:'问题标题',width:100,align:'center',editor:{type:"text",option:{required:true}}},
+				{field:'liulangnum',title:'浏览次数',width:100,align:'center'},
+				{field:'_operate',title:'操作',width:100,align:'center',
+			    	formatter:function(value,rowData,index){
+			    		return '<a class="icon-search1 icon-padding" href="javascript:showAskDetail(\''+rowData.askno+'\')">详细</a>';
+			    	}
+			    }
+	
+			]],
+			toolbar:"#ask_toolbar"
+		});
+		
+		
+	});
+	
+	setTimeout("findAllCourseType()",1000);
+	
+	function findAllCourseType(){
+		$.post("../communityServlet",{op:"findAllCourseType"},function(data){
+			var obj=$("#askType");
+			var opt;
+			$.each(data.askTypes,function(index,item){ //将所有的课程名称赋值给select
+				opt="<option value='"+item.ctypeno+"'>"+item.ctypename+"</option>";
+				obj.append($(opt));
+			});
+		},"json");
+	}
+	
+	function delAskInfo(){
+		var rows=datagrid.datagrid("getChecked");
+		if(rows.length<=0){
+			$.messager.show({
+				title:'温馨提示',
+				msg:'请您选择要删除的数据',
+				timeout:2000,
+				showType:'slide'
+			});
+		} else{
+			$.messager.confirm('信息确认','您确定要删除选中的数据吗?',function(r){
+				if(r){
+					var asknos="";
+					for(var i=0;i<rows.length-1;i++){
+						asknos+=rows[i].askno+",";
+					}
+					asknos+=rows[i].askno;
+					$.post("../communityServlet",{op:"delAskInfo",asknos:asknos},function(data){
+						data=parseInt($.trim(data));
+						if(data==1){
+							$.messager.show({
+								title:'成功提示',
+								msg:'章节删除成功',
+								timeout:2000,
+								showType:'slide'
+							});
+							datagrid.datagrid("reload");
+						} else{
+							$.messager.alert('失败提示','章节删除失败','error');
+						}
+					});
+				}
+			});
+		}
+	}
+	
+	function showAskDetail(askno){
+		var rows=datagrid.datagrid("getChecked")[0];
+		$("#ask_detail").dialog("open");
+		$("#ask_id").val(rows.askno);
+		$("#ask_title").val(rows.asktitle);
+		$("#ask_type").val(rows.ctypename);
+		$("#ask_peo").val(rows.uno);
+		$("#ask_num").val(rows.liulangnum);
+		$("#ask_content").html(rows.askcontent);
+		
+		$.post("../communityServlet",{op:"getAskAnswer",askno:rows.askno},function(data){
+			var obj=$("#ask_list");
+			var cont;
+			$.each(data.answers,function(index,item){
+				obj.accordion('add', {
+					title: item.uname+" "+item.answertimes,
+					content: item.answercontent,
+					selected: false
+				});
+				console.info(item.uname+" "+item.answercontent);
+				obj.accordion('resize');
+			});
+		},"json");
+	}
+	
+	function findAskByInfo(){
+		var typeNo=$("#askType").val();
+		datagrid.datagrid({   
+		    url:'../communityServlet',
+		    queryParams:{op:"findAskByInfo",typeNo:typeNo}
+		});
+	}
+</script>
+<div id="ask_detail" class="easyui-dialog myinputdiv" title="回答详细" style="width: 1136px; height: 550px;" data-options="fit:true,iconCls:'icon-tip',resizable:true,modal:true,closed:true">
+	<label>问题编号:</label><input id="ask_id" readonly="readonly" /><br /><br />
+	<label>问题标题:</label><input id="ask_title" readonly="readonly" /><br /><br />
+	<label>问题类型:</label><input id="ask_type" readonly="readonly" /><br /><br />
+	<label>提问者　:</label><input id="ask_peo" readonly="readonly" /><br /><br />
+	<label>浏览次数:</label><input id="ask_num" readonly="readonly" /><br /><br />
+	<label>问题正文:</label><div id="ask_content"></div><br /><br />
+	<div style="float: right; margin: -200px 100px;">
+		<label>回答列表:</label><table></table>
+		<div class="easyui-accordion" id="ask_list" style="width:400px;">
+		</div>
+	</div>
+</div>

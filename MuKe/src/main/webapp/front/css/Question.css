@@ -1,0 +1,322 @@
+@charset "utf-8";
+/* CSS Document */
+.wenda-main{
+	margin-bottom: 60px;
+}
+
+.qu-class{
+	height:31px;
+	border-bottom:1px solid #ccc;
+	color:#d0d6d9;
+}
+.qu-class a{
+	color:#999;
+	font-size:14px;
+	text-decoration:none;
+}
+.qu-class a:hover{
+	color:black;
+}
+
+/*提问者*/
+.qu-person{
+	margin-top:10px;
+	width:100%;
+}
+#qu-person{
+	font-size:12px;
+	cursor:pointer;
+}
+#qu-person:hover{
+	color:red;
+}
+#qu-person img{
+	margin-top:10px;
+	display:inline-block;
+	width:40px;
+	height:40px;
+	border-radius:20px;
+}
+#qu-person span{
+	font-size: 16px;
+}
+
+
+#qu-guanzhu{
+	float:right;
+	font-size:16px;
+	cursor:pointer;
+	font-style:normal;
+}
+#qu-guanzhu img{
+	position:absolute;
+	margin-left:-20px;
+	margin-top:23px;
+}
+
+/*问题标题*/
+.qu-body-title{
+	height:32px;
+	line-height:32px;
+}
+
+/*问题正文*/
+.qu-body-body{
+	line-height:20px;
+	font-size:14px;
+}
+
+.qu-body-img img{
+	margin-top:20px;
+	max-height: 150px;
+	max-width: 200px;
+}
+
+/*积分*/
+.qu-body-score{
+	display:inline-block;
+	width:auto;
+	font-size:12px;
+	background:#fffaf5;
+	color:#FF8922;
+	margin:15px 0 4px 0;
+	padding:5px 5px 5px 5px;
+	border:1px solid #ffe5cb;
+}
+.qu-body-score a{
+	text-decoration:none;
+	margin-left:10px;
+	color:#787d82;
+}
+.qu-body-score a:hover{
+	color:black;
+}
+
+/*标签*/
+.qu-body-label{
+	height:40px;
+	line-height:40px;
+	margin-top:10px;
+	border-bottom:1px solid #ccc;
+	font-size:12px;
+	padding-bottom:5px;
+	color:#c8cdd2;
+}
+.qu-time{
+	margin-right:14px;
+}
+
+.qu-label{
+	font-size:12px;
+	padding:5px 10px 5px 10px;
+	background:#EDF1F2;
+	text-decoration:none;
+	color:#787D82;
+	margin-right:6px;
+}
+.qu-label:hover{
+	background:#ccc;
+	color:black;
+}
+
+.qu-course{
+	text-decoration:none;
+	color:#c8cdd2;
+}
+.qu-course:hover{
+	text-decoration:underline;
+	color:#999;
+}
+
+.an{
+	float:right;
+	margin-right:10px;
+}
+.an span{
+	margin-right:5px;
+}
+
+/*回答*/
+.answer{
+	margin-top:20px;
+	width:800px;
+	float:right;
+}
+
+.answer img{
+	float:left;
+}
+
+/*回复的内容*/
+#answerlist ul{
+	list-style: none;
+}
+#answerlist ul li{
+	margin-top:10px;
+	display:inline-block;
+	width:840px;
+	font-size: 18px;
+	border-bottom: 1px solid #ccc;
+}
+#answerlist ul li img{
+	max-height: 65px;
+	max-width: 100px;
+}
+.userImg{
+	margin-bottom:20px;
+	margin-top:20px;
+	width: 30px;
+	height: 30px;
+	border-radius:15px;
+	margin-right: 40px;
+	float: left;
+}
+#answerTime{
+	float:right;
+	font-size: 12px;
+	color: #ccc;
+	margin-bottom: 6px;
+}
+
+/*回答*/
+#content{
+	width:800px;
+	height: 200px;
+}
+
+#submitButton{
+	margin-top:20px;
+	width:140px;
+	height:40px;
+	background:#00B33B;
+	border:0px;
+	color:white;
+	cursor:pointer;
+}
+#submitButton:hover{
+	background:#00D145;
+}
+
+#uploadImg{
+	display:inline-block;
+	width:140px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	background:#00B33B;
+	border:0px;
+	color:white;
+	cursor:pointer;
+}
+#uploadImg:hover{
+	background:#00D145;
+}
+#yulan{
+	display:inline-block;
+	width:140px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	background:#00B33B;
+	border:0px;
+	color:white;
+	cursor:pointer;
+}
+#yulan:hover{
+	background:#00D145;
+}
+
+/*右边*/
+/*相关问题*/
+.like-div2{
+	margin-top:10px;
+}
+
+.like-div2 ul{
+	list-style:none;
+}
+
+.like-div2 ul li{
+	padding:10px 0 10px 0;
+	width:100%;
+	word-break:break-all;
+	white-space:pre-wrap;
+	overflow:hidden;
+}
+.like-div2 ul li a{
+	color:#99a1a6;
+	font-size:12px;
+	text-decoration:none;
+} 
+.like-div2 ul li a:hover{
+	color:red;
+}
+
+/*课程*/
+#zanwu{
+	margin-top: 30px;
+	margin-left: 90px;
+	font-size: 16px;
+	color: #999;
+}
+/*右边*/
+.wenda-slider{
+	margin-bottom: 60px;
+}
+
+/*大图*/
+#bgImg{ 
+	display: none;  
+	position: fixed;  
+	top: 0%;  
+	left: 0%;  
+	width: 100%; 
+	height: 100%;  
+	background-color: black;  
+	z-index:1020;  
+	-moz-opacity: 0.7;  
+	opacity:.70;  
+	filter: alpha(opacity=70);
+}
+#show{
+	width:800px;
+	height:500px;
+	margin-left:275px;
+	display: none;  
+	position: absolute;  
+	z-index:1022;
+	overflow: auto;
+}
+#yulian{
+	width: 800px;
+}
+
+/*遮罩的css*/
+#mask { /*遮罩背景*/
+	position:absolute;
+	top:0px;
+	filter:alpha(opacity=60);
+	background-color: #B2B2B2; 
+	z-index: 999;
+	left: 0px; 
+	opacity:0.5;
+	-moz-opacity:0.5; 
+}
+
+#bigimg{ /*内容*/
+	display:none;
+	text-align:center;
+	z-index:1000;
+	position:fixed;
+	top:20%;
+	left: 28%;
+}
+
+#bigimgYulan{ /*内容*/
+	display:none;
+	text-align:center;
+	z-index:1000;
+	position:fixed;
+	top:20%;
+	left: 28%;
+}

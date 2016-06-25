@@ -1,0 +1,146 @@
+<link rel="stylesheet" type="text/css" href="../easyui/css/detail.css">
+<table id="comments_manager" data-options="fit:true"></table>
+<div id="comment_toolbar" style="width:100%;text-align:left">
+	<a id="" class="l-btn l-btn-plain" href="javascript:delCommentsInfo()">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-remove l-btn-icon-left">删除</span>
+		</span>
+	</a>
+	<span>课程章节名:</span><select name="chaptername" id="chaptername" style="width:100px;">
+		<option value="0">全部</option>
+	</select>
+	<a href="javascript:findCommentsByInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">查询</a>
+</div>
+
+<script>
+	var editRow=undefined;
+	var op;
+	var flag;
+	var commentDatagrid;
+	var editRow=undefined;
+	$(function(){
+		var statusObj1=[{sid1:0,sname1:'不可用'},{sid1:1,sname1:'可用'}];
+		commentDatagrid=$('#comments_manager').datagrid({
+			url:'comment_getAllComment',
+			fitColumns:true,
+			striped:true,
+			loadMsg:"数据加载中...",
+			pagination:true,
+			rownumbers:true,
+			sortName:'coNo',
+			remoteSort:false,
+			columns:[[
+				{checkbox:true},
+				{field:'coNo',title:'评论编号',width:100,align:'center',sortable:true},
+				{field:'uName',title:'用户姓名',width:100,align:'center',
+					formatter: function(value,row,index){
+						if(row.user){
+							return row.user.uName;
+						} else{
+							return value;
+						}
+					}	
+				},
+				{field:'chName',title:'章节名',width:100,align:'center',
+					formatter: function(value,row,index){
+						if(row.chapter){
+							return row.chapter.chName;
+						} else{
+							return value;
+						}
+					}
+				},
+				{field:'coTime',title:'评论的时间',width:100,align:'center'},
+				{field:'coDianzannum',title:'点赞数',width:100,align:'center'},
+		        {field:'_operate',title:'操作',width:100,align:'center',
+			    	formatter:function(value,row,index){
+			    		return "<a class='icon-search1 icon-padding' href='javascript:showCommentsDetail("+JSON.stringify(row)+")'>详细</a>";
+			    	}
+			    }
+	
+			]],
+			toolbar:"#comment_toolbar"
+		});
+	});
+	
+	//设置一个定时器，防止post冲突
+	setTimeout("find()",1000);
+	function find(){
+		//获取所有的章节
+		$.post("chapter_findAllChapters",function(data){
+			console.info(data);
+ 			var obj=$("#chaptername");
+ 			var opt;
+			$.each(data,function(index,item){ //将所有的课程名称赋值给select
+				opt="<option value='"+item.chNo+"'>"+item.info+"</option>";
+				obj.append($(opt));
+			}); 
+		},"json");
+	}
+	
+	function delCommentsInfo(){
+		var rows=commentDatagrid.datagrid("getChecked");
+		if(rows.length<=0){
+			$.messager.show({
+				title:'温馨提示',
+				msg:'请您选择要删除的数据',
+				timeout:2000,
+				showType:'slide'
+			});
+		} else{
+			$.messager.confirm('信息确认','您确定要删除选中的数据吗?',function(r){
+				if(r){
+					var coNos="";
+					for(var i=0;i<rows.length-1;i++){
+						coNos+=rows[i].coNo+",";
+					}
+					coNos+=rows[i].coNo;
+ 					$.post("comment_delComments",{coNos:coNos},function(data){
+						data=parseInt($.trim(data));
+ 						if(data>0){
+							$.messager.show({
+								title:'成功提示',
+								msg:'章节删除成功',
+								timeout:2000,
+								showType:'slide'
+							});
+							commentDatagrid.datagrid("reload");
+						} else{
+							$.messager.alert('失败提示','章节删除失败','error');
+						} 
+					}); 
+				}
+			});
+		}
+	}
+	
+	function findCommentsByInfo(){
+		var chNo=$("#chaptername").val();
+		commentDatagrid.datagrid({
+		    url:'comment_findCommentsByInfo.action',
+		    queryParams:{chNo:chNo}
+		});
+	}
+	
+	function showCommentsDetail(row){
+ 		$("#comment_detail").dialog("open");
+		$("#commentno").html(row.coNo);
+		$("#uname").html(row.user.uName);
+		$("#chaptername1").html(row.chapter.chName);
+		$("#dianzanshu").html(row.coDianzannum);
+		$("#commentdate").html(row.coTime);
+		$("#commentContent1").html(row.coContent);
+	} 
+</script>
+<div id="comment_detail" class="easyui-dialog myinputdiv" title="评论详细" style="width: 760px; height: 550px; padding-left: 60px; padding-top: 39px;" data-options="iconCls:'icon-tip',resizable:true,modal:true,closed:true">
+	<label class="alabel">评论编号:</label><span id="commentno"></span><br/><br/>
+	<label class="alabel">　用户名:</label><span id="uname"></span><br/><br/>
+	<label class="alabel">　章节名:</label><span id="chaptername1"></span><br/><br/>
+	<label class="alabel">　点赞数:</label><span id="dianzanshu"></span><br/><br/>
+	<label class="alabel">评论时间:</label><span id="commentdate"></span><br/><br/>
+	<label class="alabel">评论内容</label><span id="commentContent1"></span><br/><br/>
+	<div id="commentImg">
+		<p><label class="alabel">截图</label></p>
+		<img src=row.coPic alt="暂无" />
+	</div>
+</div>

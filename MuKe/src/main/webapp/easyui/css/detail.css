@@ -1,0 +1,29 @@
+.alabel{
+	font-weight: bold;
+	margin-right: 10px;
+	font-size: 14px;
+}
+
+#ask_content{ /*回答的列表*/
+	margin-left: 20px;
+	margin-top:10px;
+	width: 300px;
+	display:block;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+
+#commentContent1{ /*评论的内容*/
+	display:block;
+	width: 195px;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+#commentImg{ /*评论的截图*/
+	display:block;
+	float: right;
+	width: 342px;
+	height: 290px;
+	margin-top: -230px;
+	margin-right: 80px;
+}

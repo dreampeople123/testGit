@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.muke.mapper.UsersMapper" >
+	<!-- 找到该教师维护的所有的课程 -->
+	<select id="getTeacherCourse" parameterType="string" resultType="Course">
+		select c.* from ucourse uc,course c where uc.uno=#{uNo} and uc.cno=c.cno and uc.ucStatus=3
+	</select>
+	
+	<!-- 添加教师维护课程的信息 -->
+	<insert id="addTeacherCourse" parameterType="UploadChapterBean">
+		insert into ucourse values(#{uno},#{cNo},2,2,0,'','','',3)
+	</insert>
+
+	<!-- 查询users信息到usersBean -->
+	<select id="findUsers" parameterType="UsersBean" resultType="UsersBean">
+		select * from (select a.*,rownum rn from (select * from users
+		<where>
+			uStatus<![CDATA[>]]>1
+			<if test="uNo!=null">
+				and uNo=#{uNo}
+			</if>
+			<if test="uPwd!=null">
+				and uPwd=#{uPwd}  
+			</if>
+			<if test="uTel!=null">
+				and uTel=#{uTel}  
+			</if>
+			<if test="uName!=null">
+				and uName like '%${uName}%'
+			</if>
+			<if test="uIsTeacher>=0">
+				and uIsTeacher=#{uIsTeacher}
+			</if>
+		</where>
+		order by uNo asc) a where rownum<![CDATA[<]]>=(${page}*${rows}))
+		b where rn<![CDATA[>]]>((${page}-1)*${rows})
+	</select>
+	<!-- 总记录数 -->
+	<select id="total" parameterType="Map" resultType="int">
+		select count(*) from (select * from users
+		<where>
+			uStatus<![CDATA[>]]>1
+			<if test="uName!=null">
+				and uName like '%${uName}%'
+			</if>
+			<if test="uIsTeacher>=0">
+				and uIsTeacher=#{uIsTeacher}
+			</if>
+		</where>
+		order by uNo)
+	</select>
+	<!-- 批量删除 -->
+	<update id="delUsers" parameterType="String">
+		<foreach collection="array" item="uno" close=")"
+			open="update users set uStatus=1 where uNo in (" separator=",">
+			#{uno}
+		</foreach>
+	</update>
+	<!-- 更新用户数据 -->
+	<update id="updateUsers" parameterType="UsersBean">
+		<!-- update users set upwd=? where uno=? and upwd=? -->
+		update users
+		<set>
+			<if test="uName!=null">
+				uName=#{uName} ,
+			</if>
+			<if test="uPwd!=null">
+				uPwd=#{uPwd} ,
+			</if>
+			<if test="uAddress_prov!=null">
+				uAddress_prov=#{uAddress_prov} ,
+			</if>
+			<if test="uAddress_city!=null">
+				uAddress_city=#{uAddress_city} ,
+			</if>
+			<if test="uAddress_county!=null">
+				uAddress_county=#{uAddress_county} ,
+			</if>
+			<if test="uSex!=null">
+				uSex=#{uSex} ,
+			</if>
+			<if test="uUsign!=null">
+				uUsign=#{uUsign} ,
+			</if>
+			<if test="uPic!=null">
+				uPic=#{uPic} ,
+			</if>
+			<if test="uTel!=null">
+				uTel=#{uTel} ,
+			</if>
+			<if test="uSummary!=null">
+				uSummary=#{uSummary} ,
+			</if>
+			<if test="uTry!=null">
+				uTry=#{uTry} ,
+			</if>
+			<if test="uRealname!=null">
+				uRealname=#{uRealname} ,
+			</if>
+			<if test="uIsTeacher>=0">
+				uIsTeacher=#{uIsTeacher}
+			</if>
+		</set>
+		where uNo=#{uNo}
+	</update>
+	<!-- 用户注册 -->
+	<insert id="addUsreInfo" parameterType="UsersBean">
+		<selectKey keyProperty="uNo" keyColumn="uNo" order="BEFORE" resultType="String">
+			select seq_users_uNo.Nextval uNo from dual
+		</selectKey>
+		insert into users values(${uNo},'${uName}','${uPwd}','','','','${uSex}','${uUsign}','${uPic}',${uTel},0,0,'','','',2)
+	</insert>
+</mapper>

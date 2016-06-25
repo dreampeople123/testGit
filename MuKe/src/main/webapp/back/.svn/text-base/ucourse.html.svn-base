@@ -1,0 +1,151 @@
+<!-- 用户课程信息浏览-->
+
+<table id="ucourse_info" data-options="fit:true"></table>
+<div id="show_ucourse_info_find" style="width:100%,text-align:left">&nbsp; 
+
+	<a id="" class="l-btn l-btn-plain" href="javascript:changeUcourseInfoByInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-edit l-btn-icon-left">修改</span>
+		</span>
+	</a>
+	<a id="" class="l-btn l-btn-plain" href="javascript:saveUcourseInfoByInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-save l-btn-icon-left">保存</span>
+		</span>
+	</a>
+	
+	<span>会员名：</span><input type="text" name="title" id="show_ucourse_uname" />
+	<span>课程名：</span><input type="text" name="title" id="show_ucourse_cname" />
+	<span>是否关注：</span><select name="guan" id="guanzhu" class="myinput">
+			<option value="-1">全部</option>
+			<option value="0">否</option>
+			<option value="1">是</option>
+		</select>
+	<a href="javascript:findUcourseInfoByInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> 
+	
+</div>
+<script>
+var datagrid;
+		var editRow=undefined;
+		var op;
+		var flag;
+	$(function(){
+		
+		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
+		datagrid=$('#ucourse_info').datagrid({
+			url:'../userServlet',
+			queryParams:{op:"getUcourseInfo"},
+			fitColumns:true,
+			striped:true,
+			loading:"数据加载中",
+			pagination:true,
+			rownumbers:true,
+			sortName:'uno',
+			sortOrder:'asc',
+			remoteSort:false,
+			columns:[[
+				{field:'uno',title:'选择',width:100,align:'center',checkbox:true},
+				{field:'uname',title:'用户名',width:100,align:'center',sortable:true},
+				{field:'cname',title:'课程名',width:100,align:'center',sortable:true},
+				{field:'attention',title:'是否关注',width:100,align:'center',
+					formatter: function(value,rowData,index){
+							console.info("asdfdfa"+rowData.attention);
+							if(rowData.attention==0){
+								return '未关注';
+							}else if(rowData.attention==1){
+								return '已关注';
+							}
+						}
+				},
+				{field:'statisfy',title:'满意度',width:100,align:'center',sortable:true},
+				{field:'learnstatus',title:'学习状态',width:100,align:'center',
+					formatter: function(value,rowData,index){
+							if(rowData.learnstatus==0){
+								return '未学习';
+							}else if(rowData.learnstatus==1){
+								return '已学习';
+							}
+						}
+				},
+				{field:'status',title:'状态',width:100,align:'center',editor:{type:"combobox",options:{
+					required:true,valueField:'sid',textField:'sname',data:statusObj}},
+					formatter:function(value,row,index){
+						for(var i=0;i<statusObj.length;i++){
+							if(statusObj[i].sid==value){
+								return statusObj[i].sname;
+							}
+						}
+						return value;
+					}
+				}
+			]],
+			toolbar:"#show_ucourse_info_find"
+		});
+	});
+function findUcourseInfoByInfo(){
+	var uname=$.trim($("#show_ucourse_uname").val());
+	var cname=$.trim($("#show_ucourse_cname").val());
+	var guan=$.trim($("#guanzhu").val());
+		$('#ucourse_info').datagrid({
+			url:'../userServlet',
+			queryParams:{op:"findUcourseByInfo",uname:uname,cname:cname,attention:guan}
+		});
+}
+function changeUcourseInfoByInfo(){
+	var rows=datagrid.datagrid("getChecked")[0];
+		if(rows==undefined){
+			$.messager.show({
+						title:'温馨提示',
+						msg:'请要选择您要修改的数据....',
+						timeout:2000,
+						showPosition:'slide'
+					});
+		}else{
+			op="updateUcourseInfo";
+			flag="修改";
+			if(editRow!=undefined){
+				datagrid.datagrid("rejectChanges");
+				datagrid.datagrid("endEdit",editRow);
+				editRow=undefined;
+			}else{
+				var index=datagrid.datagrid("getRowIndex",rows);
+				datagrid.datagrid("updateRow",{index:index,row:rows});
+				datagrid.datagrid("beginEdit",index);
+				editRow=index;
+			
+			}
+		}
+	}
+	function saveUcourseInfoByInfo(){
+		datagrid.datagrid("endEdit",editRow);
+						var rows=datagrid.datagrid("getChanges")[0];
+						if(rows==undefined){
+							datagrid.datagrid("rejectChanges");
+							datagrid.datagrid("endEdit",editRow);
+							editRow=undefined;
+						}else{
+							rows["op"]=op;
+							$.post("../userServlet",rows,function(data){
+								data=parseInt($.trim(data));
+								if(data==1){
+									$.messager.show({
+										title:'成功提示',
+										msg:'用户课程信息'+flag+'成功....',
+										timeout:2000,
+										showPosition:'slide'
+									});
+								}else{
+									$.messager.alert('失败提示','用户课程信息添加失败....','error');
+								}
+								rows=null;
+								datagrid.datagrid("reload");
+								editRow=undefined;
+								datagrid.datagrid("rejectChanges");
+								datagrid.datagrid("unselectAll");
+							});
+						}
+	}
+
+</script>
+			
+

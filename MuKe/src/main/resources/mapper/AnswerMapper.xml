@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.muke.mapper.AnswerMapper" >
+	<!-- AnswerBean的resultMap -->
+	<resultMap type="AnswerBean" id="AnswerBeanMap">
+		<id property="anNo" column="anNo"/>
+		<association property="ask" column="aNo" select="findAskByNo" />
+		<association property="user" column="uno" select="findUserByNo"/>
+	</resultMap>
+	<select id="findAskByNo" parameterType="string" resultType="Ask">
+		select * from ask where aNo=#{aNo}
+	</select>
+	<select id="findUserByNo" parameterType="string" resultType="Users">
+		select * from users where uNo=#{uNo}
+	</select>
+
+	<!-- 获取问题下的回答 -->
+	<select id="getAskAnswerByNo" parameterType="string" resultMap="AnswerBeanMap">
+		select * from answer where aNo=#{aNo} order by to_date(anTime,'yyyy/MM/dd HH24:MI:ss')
+	</select>
+	
+	<!-- 根据问题编号删除问题下的回答 -->
+	<delete id="delAskAnswerByANo" parameterType="string">
+		update answer set anStatus=1 where aNo=#{aNo}
+	</delete>
+	
+	<!-- 根据问题编号找到最新回答 -->
+	<select id="findNewAnswerByAno" parameterType="string" resultType="Answer">
+		select a.* from      
+			(select * from answer where ano=#{aNo} order by anTime desc) a where rownum=1
+	</select>
+	
+	<!-- 添加回答信息 -->
+	<insert id="addAnswer">
+		insert into answer values(seq_answer_anNo.Nextval,#{aNo},#{anContent},#{uNo},#{anTime},#{anPic},'','',2)
+	</insert>
+</mapper>

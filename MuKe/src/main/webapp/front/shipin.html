@@ -1,0 +1,626 @@
+  <!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>查看课程</title>
+<link href="css/shipin.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/footer.css" type="text/css" />
+<script type="text/javascript" src="js/shipin.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+
+</head>
+
+<body>
+	<!-- 灰色背景 -->
+	<div id="bg" class="bg" style="display:none;"></div>
+	
+	<div id="header" class="course-detail-header">
+    	<div class="cd-inner clearfix">
+        	<ul class="l">
+            	<li class="nv nv-goback">
+                	<a class="revert l" href="javascript:void(0);">
+						<p class="head_turn_left ad"></p>
+					</a>
+                </li>
+                <li class="nv nv-menu">
+                	<a class="chaptername J-chaptername" style="cursor:text;" href="javascript:void(0);">
+						<span>Premiere魔术——图片变电影...</span>
+						<p>1-1 概述</p>
+					</a>
+                </li>
+                <li class="nv nv-follow">
+                	<a class="js-btn-follow course-follow" title="关注此课程" id="guanzhuc" href="javascript:guanzhuci('guanzhuc')">
+						<i class="icon icon-heart"></i>
+						<p>关注</p>
+					</a>
+                </li>
+                <!--
+                <li class="nv nv-share bdsharebuttonbox bdshare-button-style0-16">
+                	<span>分享</span>
+					<a class="bds_weixin" title="分享到微信"></a>
+					<a class="bds_qzone" href="javascript:void(0)"  title="分享到QQ空间"></a>
+					<a class="bds_tsina"  title="分享到新浪微博"></a>
+					<div id="coursePic" style="display:none">
+						<img src="http://img.mukewang.com/5629e01d000189bf06000338-590-330.jpg">
+					</div>
+                </li>-->
+                <li class="nv credit-tips js-share-statue" style="display:none;">
+                	<span>分享即可 +</span>
+					<strong>1积分</strong>
+                </li>
+            </ul>
+            <ul class="r course-nv-right" style="display:none;">
+				<li class="nvr">
+          			<a href="javascript:void(0)" class="nvr-msg" title="我的消息" target="_blank">
+            			<i class="icon icon-msg"></i>
+            			<span class="msg_icon" style="display:none"></span>
+          			</a>
+        		</li>
+				<li class="nvr user-card-box">
+          			<a href="javascript:void(0)" action-type="my_menu" class="nvr-space user-card-item" id="js-user-avatar">
+            		<img src="%E6%A6%82%E8%BF%B0-%E6%85%95%E8%AF%BE%E7%BD%91_files/547149440001375501000100-40-40.jpg" height="40" width="40">
+            		<i class="myspace_remind" style="display: none;"></i>
+            		<span style="display: none;">动态提醒</span>
+          			</a>
+          			<div class="g-user-card">
+              			<div class="card-inner">
+                  			<div class="card-top">
+                      			<img src="%E6%A6%82%E8%BF%B0-%E6%85%95%E8%AF%BE%E7%BD%91_files/547149440001375501000100-100-100.jpg" alt="木头人_0026" class="l">
+                      			<span class="name text-ellipsis">木头人_0026</span>
+                      			<p class="meta">
+                        			<a href="javascript:void(0)">经验<b id="js-user-mp">0</b></a>
+                        			<a href=javascript:void(0)>积分<b id="js-user-mp">0</b></a>
+                      			</p>
+                  			</div>
+                  			<div class="card-links">
+                      			<a href="javascript:void(0)" class="my-mooc l">我的慕课<i class="dot-update"></i><span style="display: none; font-size: 12px; color: rgb(255, 255, 255); background: rgb(240, 20, 0) none repeat scroll 0% 0%; border-radius: 50%; width: 16px; height: 16px; vertical-align: middle; line-height: 16px; margin: -5px 0px 0px 5px; text-align: center; font-weight: normal;">0</span></a>
+                      			<span class="split l"></span>
+                      			<a href="javascript:void(0)" class="my-sns l">我的社区<span style="display: none; font-size: 12px; color: rgb(255, 255, 255); background: rgb(240, 20, 0) none repeat scroll 0% 0%; border-radius: 50%; width: 16px; height: 16px; vertical-align: middle; line-height: 16px; margin: -5px 0px 0px 5px; text-align: center; font-weight: normal;">0</span></a>
+                  			</div>
+                            <div class="card-history">
+                      			<span class="history-item">
+                          			<span class="tit text-ellipsis">Android-Widget桌面小组件</span>
+                          			<span class="media-name text-ellipsis">1-1 课程介绍</span>
+                          			<i class="icon-clock"></i>
+                          			<a href="javascript:void(0)" class="continue">继续</a>
+                      			</span>
+                  			</div>
+                            <div class="card-sets clearfix">
+                      			<a href="javascript:void(0)" class="l">个人设置</a>
+                      			<a href="javascript:void(0)" class="r">退出</a>
+                  			</div>
+              			</div>
+              			<i class="card-arr"></i>
+          			</div>
+      			</li>
+      		</ul>
+        </div>
+	</div>
+	<div id="studyMain"> 
+		<div id="bgarea" class="video-con">
+    		<div style="width:100%; height: 526px;" class="js-box-wrap" id="js-box-wrap">
+    		<!--此处结构为播放视屏-->
+        		 <video id="media" src="media/thebigbang.mp4" controls="ture" loop="loop"  preload="preload" height="100%" width="100%" autoplay="autoplay">浏览器不支持</video>
+    		</div>
+	    <!--此处结构为练习题，视频，编程公用的侧栏-->
+			<div class="section-list" id="section-list" style="margin-right:-360px;">
+	    		<div class="operator">
+	        		<div class="op chapter " id="light" onClick="zhang()"><em class="icon-menu"></em>章节</div>
+	        		 <div class="op notes"  onClick="zhangno()"><em class="icon-note"></em>评论</div>
+	        		 <div class="op question" onClick="zhangqa()"><em class="icon-addques"></em>提问</div>
+	    		</div>
+	    		<div class="nano has-scrollbar">
+	        		<div style="right: -17px;" tabindex="0" class="nano-content">
+	            		<h3>Premiere魔术——图片变电影...</h3>
+	                   	<ul>
+	                		<li class="sec-title">
+	                    		<span>第1章 概述</span>
+	                		</li>
+	                      	<li data-id="10220">
+	                        	<a href="javascript:void(0)"><em class="icon-video"></em>1-1 概述(01:12)</a>
+	                            <i class="">正在学<em class="icon-clock"></em></i>
+	                        </li>
+	                    </ul>
+	                   	<ul>
+	                		<li class="sec-title">
+	                    		<span>第2章 制作</span>
+	                		</li>
+	                        <li data-id="10221">
+	                        	<a href="javascript:void(0)"><em class="icon-video"></em>2-1 创建项目&amp;导入素材...(01:48)</a>
+	                           		<i class=""><em class="icon-nolearn"></em></i>
+	                        </li>
+	                        <li data-id="10245">
+	                        	<a href="javascript:void(0)"><em class="icon-video"></em>2-2 常用快捷键介绍...(01:33)</a>
+	                                                <i class="">                                                        <em class="icon-nolearn"></em>
+	                                                    </i>
+	                                            </li>
+	                                                                            <li data-id="10252">
+	                        <a href="javascript:void(0)"><em class="icon-video"></em>2-3 设置图片展示效果...(05:23)</a>
+	                                                <i class="">                                                        <em class="icon-nolearn"></em>
+	                                                    </i>
+	                                            </li>
+	                                                                            <li data-id="10253">
+	                        <a href="javascript:void(0)"><em class="icon-video"></em>2-4 根据不同的曲风调节...(03:20)</a>
+	                                                <i class="">                                                        <em class="icon-nolearn"></em>
+	                                                    </i>
+	                                            </li>
+	                                                                            <li data-id="10298">
+	                        <a href="javascript:void(0)"><em class="icon-video"></em>2-5 根据设计合理剪裁拼...(06:21)</a>
+	                                                <i class="">                                                        <em class="icon-nolearn"></em>
+	                                                    </i>
+	                                            </li>
+	                                                                            <li data-id="10409">
+	                        <a href="javascript:void(0)"><em class="icon-video"></em>2-6 添加画中画效果...(03:49)</a>
+	                                                <i class="">                                                        <em class="icon-nolearn"></em>
+	                                                    </i>
+	                                            </li>
+	                                                </ul>
+	            
+	        </div>
+	    <div style="display: none;" class="nano-pane"><div style="height: 512px; transform: translate(0px, 0px);" class="nano-slider"></div></div></div>
+	</div>
+</div>
+
+	<div class="maybe-wenda" id="maybe-wenda" style="display: none;">
+	    <i class="icon-chat"></i>
+	    <p class="text">你发的评论可能会是问题？<br>是否将他发到问答中</p>
+	    <input class="btn ok" value="好的" id="wenda-ok" type="button">
+	    <input class="btn no" value="不用" id="wenda-no" type="button">
+	</div>
+</div>
+
+<div class="course-subcontainer clearfix">
+  <div class="course-left">
+      <ul  class="course-menu course-video-menu clearfix js-course-menu" data-ower="all" data-sort="last">
+  <!-- <li class="course-menu-item"><a class="active" href="javascript:qie('plMenu')" id="plMenu">评论</a></li>-->
+    <li class="course-menu-item"><a href="javascript:qie('qaMenu')" class="active" id="qaMenu">问答</a></li>
+    <li class="course-menu-item"><a href="javascript:qie('noteMenu')" id="noteMenu">评论</a></li>
+  
+        </ul>
+<div id="disArea" class="lists-container list-wrap">
+    <div id="pl-content" class="list-tab-con" style="display:none">
+        <div class="publish clearfix">
+            <div class="publish-wrap publish-wrap-pl">
+               <div class="pl-input-wrap">
+                   <div id="js-pl-input-fake" class="pl-input-inner">
+                       <textarea id="js-pl-textarea" class="js-placeholder" placeholder="扯淡、吐槽、表扬、鼓励……想说啥就说啥！"></textarea>
+                       <span class="num-limit"><span id="js-pl-limit">0</span>/300</span>
+                   </div>
+                   <div class="pl-input-btm input-btm clearfix">
+                        <div class="verify-code l"></div>
+                        <input id="js-pl-submit" class="r course-btn" value="发表评论" type="button">
+                   </div>
+               </div>
+
+            </div>
+        </div>
+        <div id="plLoadListData"><div class="pl-container"> 
+        	<ul>   
+            	<li class="pl-list clearfix"> 
+                	<div class="pl-list-avator"> 
+                    	<a href="images/55979a600001892501000100-40-40.jpg" target="_blank">
+                    		<img src="images/55979a600001892501000100-40-40.jpg" title="Lowp" height="40" width="40">
+                        </a> 
+                    </div> 
+                    <div class="pl-list-main"> 
+                    	<div class="pl-list-nick"> 
+                        	<a href="http://www.imooc.com/space/u/uid/2113516" target="_blank">Lowp</a> 
+                        </div> 
+                        <div class="pl-list-content">沙发沙发沙发</div>  <div class="pl-list-btm clearfix"> <span class="pl-list-time l">时间: 12小时前</span>  <a title="赞" href="javascript:;" class="js-pl-praise list-praise r" data-id="132398"><i class="icon-thumb"></i>  <span>0</span></a> </div> </div> </li> </ul></div><div class="page pl-list-page"></div></div>
+    </div>
+    <div id="qa-content" class="list-tab-con" style="display:block">
+        <div id="qaLoadListData">
+        	<div class="sortlist">
+        		<div class="ordertab">
+        			<a href="javascript:void(0)" hidefocus="true" data-order="1" class="quealltab onactive">全部</a>				
+        			<a href="javascript:void(0)" hidefocus="true" data-order="2" class="quealltab ">精华</a>			
+        		</div>		
+        	</div>
+        	<div class="answertabcon">
+        	<div class="wenda-listcon clearfix">
+<div class="headslider">
+<a class="wenda-head" title="醉心浪子" target="_blank" href="http://www.imooc.com/space/u/uid/2121018">
+<img width="40" alt="醉心浪子" src="images/55a793370001d91531203300-80-80.jpg">
+</a>
+<a class="wenda-nickname" title="醉心浪子" target="_blank" href="http://www.imooc.com/space/u/uid/2121018">醉心浪子</a>
+</div>
+<div class="wendaslider">
+<a class="replynumber hasanswernum" target="_blank" href="http://www.imooc.com/qadetail/108001">
+<div class="ys">
+<div class="number padAjust">
+<b class="numShow">1</b>
+</div>
+<div class="number">回答</div>
+</div>
+<div class="browsenum">
+<div class="number padAjust">
+<b class="numShow">61</b>
+</div>
+<div class="number">浏览</div>
+</div>
+</a>
+<h2 class="wendaquetitle">
+<i class="icon-tick-revert"></i>
+<div class="wendatitlecon">
+<a class="wendatitle" target="_blank" href="http://www.imooc.com/qadetail/108001">
+<p> 是否会很繁杂 </p>
+</a>
+<span class="wait-answer">
++
+<strong>1积分</strong>
+</span>
+</div>
+</h2>
+<div class="replycont clearfix">
+<i class="icon-msg-revert"></i>
+<div class="fl replydes">
+<span class="replysign adopt">[已采纳的回答]</span>
+<a class="replyuserhead" title="weibo_ldj83_0" target="_blank" href="http://www.imooc.com/space/u/uid/2633594">
+<img width="20" alt="weibo_ldj83_0" src="images/55c1675100010d6501000100-80-80.jpg">
+</a>
+<a class="nickname" title="weibo_ldj83_0" target="_blank" href="http://www.imooc.com/space/u/uid/2633594">weibo_ldj83_0: </a>
+<span class="replydet">这个太简单了，不用修剪图片也行。</span>
+</div>
+</div>
+<div class="replymegfooter">
+<div class="wenda-time">
+<em>时间：2015-12-04</em>
+</div>
+</div>
+</div>
+</div>
+        		<div class="wenda-listcon clearfix">
+					<div class="headslider">
+						<a class="wenda-head" title="木头人_0026" target="_blank" href="">
+							<img width="40" alt="木头人_0026" src="images/53c3ad9d000183e301800180-80-80.jpg">
+						</a>
+						<a class="wenda-nickname" title="木头人_0026" target="_blank" href="http://www.imooc.com/space/u/uid/1047215">木头人_0026</a>
+					</div>
+					<div class="wendaslider">
+						<a class="replynumber hasanswernum" target="_blank" href="http://www.imooc.com/qadetail/105883">
+							<div class="ys">
+								<div class="number padAjust">
+									<b class="numShow">1</b>
+								</div>
+								<div class="number">回答</div>
+							</div>
+							<div class="browsenum">
+								<div class="number padAjust">
+									<b class="numShow">69</b>
+								</div>
+								<div class="number">浏览</div>
+							</div>
+						</a>
+						<h2 class="wendaquetitle">
+							<i class="icon-ques-revert"></i>
+							<div class="wendatitlecon">
+								<a class="wendatitle" target="_blank" href="http://www.imooc.com/qadetail/105883">
+									<p> 多发点放大是大非 </p>
+								</a>
+							</div>
+						</h2>
+						<div class="replycont clearfix">
+							<i class="icon-msg-revert"></i>
+							<div class="fl replydes">
+								<span class="replysign praise">[最新回答]</span>
+								<a class="replyuserhead" title="Im_think_think" target="_blank" href="http://www.imooc.com/space/u/uid/2074451">
+									<img width="20" alt="Im_think_think" src="images/5333a0780001a6e702200220-80-80.jpg">
+								</a>
+								<a class="nickname" title="Im_think_think" target="_blank" href="http://www.imooc.com/space/u/uid/2074451">Im_think_think: </a>
+								<span class="replydet">what？</span>
+							</div>
+						</div>
+						<div class="replymegfooter">
+							<div class="wenda-time">
+								<em>时间：2015-11-20</em>
+							</div>
+						</div>
+					</div>
+				</div>
+		         <p class="unquestion" style="display:none">
+		        	<span class="icon-ques"></span>
+		            	此节暂无同学的问答
+		         </p>
+        	</div>
+       
+        <div class="page discuss-list-page"></div></div>
+    </div>
+    <div id="note-content" class="list-tab-con" style="display:none">
+        <div id="noteLoadListData">
+	        <div class="course-tool-bar clearfix js-select-state">			
+	        	<div class="tool-left js-all-state">		        
+		        	<a href="javascript:;" class="sort-item active" data-sort="last">最新</a>		        
+		        	<a href="javascript:;" class="sort-item" data-sort="sugg">点赞</a>		        
+		        	<!--  <a href="javascript:;" class="sort-item" data-sort="coll">采集</a>-->	        
+	        	</div>	        
+	        	<div class="tool-right r">		        
+		        	<span class="tool-item">		        	
+		        		<!--  <a href="javascript:;" class="js-ower hide-learned tool-chk" data-sort="last">只看我的</a>-->		        
+		        	</span>		    
+	        	</div>		
+	        </div>
+        	<div id="course_note" class="course_note">
+        		<ul>
+					<li>
+						<div class="notelist_headpic">
+							<a target="_blank" href="/space/u/uid/105648">
+								<img width="40" height="40" src="http://img.mukewang.com/user/55a3387b0001126306000327-80-80.jpg">
+							</a>
+						</div>
+						<div class="notelist_content">
+							<div class="u_name">
+								<a target="_blank" href="/space/u/uid/105648">昵称无</a>
+							</div>
+							<div class="js-notelist-content notelist-content mynote">
+								<p>视频课程好</p>
+								<div class="notelist-content-more">
+									<a class="js-toggle-content" href="javascript:;">[ 查看全文 ]</a>
+								</div>
+							</div>
+							<div class="clearfix">
+								<!--  <a class="sava_btn" href="javascript:void(0);" style="diplay:none;">保存</a>-->
+							</div>
+							<div class="answercon notelist">
+								<div class="js-toggle-notelist answerImg">
+									<img width="156" height="88" data-src="http://img.mukewang.com/564aa06d0001b5ef12800720.jpg" src="images/55bb18ee000173e706000338-240-135.jpg">
+									<i class="had-ptime">00:44</i>
+									  <div class="hover-area">
+										<!--  <a class="js-catch-pic slider-door catch-pic" href="javascript:;"">
+											<span>看截图</span>
+										</a>-->
+										<a class="slider-door catch-video" target="_blank" href="/video/10220/44">
+											<span>看截图</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="notelist-bottom clearfix">
+								<span class="l timeago" title="1447731431">2015-11-17</span>
+								<div class="notelist-actions">
+									<textarea style="display:none;">视频课程好</textarea>
+									<!--<a class="Jcollect list-praise on" data-id="599080|105648" href="javascript:;" title="已采集">
+										<span class="icon-star-revert on"></span>
+										<i>已采集</i>
+										<em>1</em>
+									</a>-->
+									<a class="Jpraise list-praise" data-id="599080" id="dainza" href="javascript:dianzan('dainza');" title="赞">
+										<p>0</p>
+									</a>
+								</div>
+							</div>
+						</div>
+					</li>
+
+
+				</ul>
+        	
+        	</div>
+        	<div class="page note-list-page">
+        	
+        	</div>
+        	</div>
+    </div>
+    <div id="wiki-content" class="list-tab-con" style="display:none;">
+        <div id="wikiLoadListData">
+        <div id="course_wiki" class="course_wiki"></div><div class="page wiki-list-page"></div></div>
+    </div>
+    <div id="mate-content" class="list-tab-con" style="display:none;">
+        <div id="mateLoadListData">
+        <div class="othterscode-container"></div><div class="page othterscode-list-page"></div></div>
+    </div>
+
+</div>
+  </div>
+  <div class="course-right clearfix">
+           <div class="classmate fl">
+      <h3>你的同学<span>1210人</span><a href="javascript:void(0);" class="js-ch-mate ch-classmate">换一批</a></h3>
+      <div class="users_wrap">
+          <div id="js-class-mate" class="users clearfix">
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/5624c8160001c2a902200220-80-80.jpg" title="柚子茶tea"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/561f37170001d81701800180-80-80.jpg" title="蔡涵镛"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/53c3ad9d000183e301800180-80-80.jpg" title="千万分之一one"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/53ec574500010c1d01000100-80-80.jpg" title="科學松鼠會"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/5333a24400017ccd02000200-80-80.jpg" title="1359420"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/540e56930001f6fa01800180-80-80.jpg" title="inysu"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/533e4c640001354402000200-80-80.jpg" title="cross昵称被占"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/533e4c910001a72d02000200-80-80.jpg" title="gknpezgssb"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/545b8c3f0001115601000100-80-80.jpg" title="cloudream"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/5333a0780001a6e702200220-80-80.jpg" title="单手虐菜"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/545862c40001eebf02200220-80-80.jpg" title="wuyungen"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/533e4c2300012ab002200220-80-80.jpg" title="hujia"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/545862f200018f4802200220-80-80.jpg" title="tumi"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/55a793370001d91531203300-80-80.jpg" title="Clyen"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/56073bf20001119f01800180-80-80.jpg" title="Jose_Lee"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/54a357dc0001e02d01000100-80-80.jpg"title="zilianliuxue"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/55c1675100010d6501000100-80-80.jpg" title="韶华散尽"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/5458621e0001bd7b02200220-80-80.jpg" title="sinstech"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/54caf7860001956701000100-80-80.jpg" title="qq_丿丶飓风丨音速灬_0"></a>
+          <a class="mate-avator" href="javascript:void(0)" target="_blank"><img src="images/54e3c9fe00018c8901000100-80-80.jpg" title="manant"></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="course-about">
+    <div class="course-about-tit clearfix">
+        <h3>学过该课的人还学过</h3>
+                <span class="on">课程</span>
+                    </div>
+        <ul style="display: block;" class="con-wrap clearfix">
+                <li>
+            <a href="javascript:void(0)" class="img-box" target="_blank">
+                <img src="images/55c1ac740001b34f06000338.jpg" alt="Oeasy教你玩转后期剪辑Premiere">
+                <p>Oeasy教你玩转后期剪辑Premiere</p>
+            </a>
+        </li>
+                <li>
+            <a href="javascript:void(0)" class="img-box" target="_blank">
+                <img src="images/536059be00010b6d06000338.jpg" alt="Java入门第一季">
+                <p>Java入门第一季</p>
+            </a>
+        </li>
+                <li>
+            <a href="javascript:void(0)" class="img-box" target="_blank">
+                <img src="images/53b65f70000148d306000338.jpg" alt="Java入门第二季">
+                <p>Java入门第二季</p>
+            </a>
+        </li>
+                <li>
+            <a href="javascript:void(0)" class="img-box" target="_blank">
+                <img src="images/53e1d0470001ad1e06000338.jpg" alt="JavaScript入门篇">
+                <p>JavaScript入门篇</p>
+            </a>
+        </li>
+                <li>
+            <a href="javascript:void(0)" class="img-box" target="_blank">
+                <img src="images/529dc3450001eb3606000338.jpg" alt="JavaScript进阶篇">
+                <p>JavaScript进阶篇</p>
+            </a>
+        </li>
+            </ul>
+        </div>
+
+<div id="footer">
+    <div class="footer_intro l">
+        <div class="footer_link">
+            <ul>
+                <li><a href="#" target="_blank">网站首页</a></li>
+                <li><a href="#" target="_blank">人才招聘</a></li>
+                <li><a href="#" target="_blank">联系我们</a></li>
+                <li><a href="#" target="_blank">高校联盟</a></li>
+                <li><a href="#" target="_blank">关于我们</a></li>
+                <li><a href="#" target="_blank">讲师招募</a></li>
+                <li><a href="#" target="_blank">意见反馈</a></li>
+                <li><a href="#" target="_blank">友情链接</a></li>
+            </ul>
+        </div><!--footer_link结束-->
+        <br/>
+        <p>
+        	<span style="color:#999">Copyright  2015 imooc.com All Rights Reserved | 京ICP备 13046642号-2</span>
+        </p>
+    </div><!--footer_intro l结束-->
+</div><!--footer结束-->
+<!--弹出框-->
+<div class="publish clearfix note-pop" id="note-publist" style="display:none">
+    <div class="publish-wrap publish-wrap-note video-publish-note pop-con">
+        <div class="pop-title">
+            <h3>评论</h3>
+            <a onClick="noclose('note-publist')"><img src="images/2015-11-24_200720.gif"/></a>
+        </div>
+        <div id="js-note-input-fake" class="textarea-wrap">
+            <textarea  id="js-note-textarea" class="js-placeholder" name="" placeholder="请输入评论内容..."></textarea>
+            <p class="note-text-counter"><span id="js-note-limit">0</span>/1000</p>
+        </div>
+        <div class="publish-note-btns input-btm clearfix pop-footer">
+            <div class="verify-code clearfix"></div>
+                                            <div title="截图" class="js-shot-video screen-btn" id="screen-btnbi" data-type="note">
+                    <span onClick="jie()">截图</span>
+                </div>
+             <input title="发表" value="保存" id="js-note-submit" class="course-btn r" type="button">                          
+            <label for="js-isshare" class="label-checked r"><input checked="checked" id="js-isshare" class="checked" type="checkbox"> 公开</label>
+             
+            <!-- <div class="integral-info">
+                <span>本次提问将花费1个积分</span>
+                <a target="_blank" href="/myclub/rule">什么是积分？</a>
+            </div> -->
+        </div>
+    </div>
+</div>
+<!--问答弹出框 通用-->
+<div style="display:none" class="publish clearfix qa-pop" id="discus-publish">
+    <div style="" id="publish-wraps" class="publish-wrap publish-wrap-disucss video-publish-qa pop-con">
+        <div class="pop-title">
+            <h3>提问</h3>
+            <a onClick="noclose('discus-publish')"><img src="images/2015-11-24_200720.gif"/></a>
+        </div>
+        <div class="qa-control-wrap clearfix">
+            <div class="question-area">
+                <div class="qa-control qa-ipt-title">
+                    <input id="js-qa-title" maxlength="255" class=" js-placeholder autocomplete" placeholder="请输入问题标题" type="text">
+                </div>
+                <a class="another-meth" target="_blank" href="">
+					如何更好
+					<br>
+					的提问？
+				</a>
+                <dl class="send-area-result">
+                </dl>
+            </div>
+        </div>
+        <div style="" class="qa-control-wraps clearfix">
+            <div style="" class="qa-control">
+                <div style="" class="rich-text-editor">
+                    <div style="" class="edui-imooc" id="discuss-editor">
+                    	<div class="edui-editor">
+                            <div id="edui2" class="edui-toolbar">
+                                <ul>
+                                    <li class="sel">
+                                        <select name="provs" id="pros" onChange="change()">
+                                            <option value="java">java</option>
+                                            <option value="c/c++">c/c++</option>
+                                        </select>
+                                    </li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                            <div id="edui1_iframeholder" class="edui-editor-iframeholder edui-imooc">
+                            	<div id="ans" class="answert">
+                            		<textarea id="verify-code-ipt"  placeholder="请输入讨论内容..."></textarea>
+                            	</div>	
+							</div>
+                        </div>
+                   	</div>
+                    
+                </div>
+            </div>
+        </div>
+        <div id="js-discuss-btm" class="discuss-bottom input-btm clearfix pop-footer">
+            <div class="verify-code clearfix">
+            	<input maxlength="4" class="verify-code-ipt" placeholder="请输入验证码" type="text">
+                <img class="img-code" src="images/2015-12-09_194819.gif">
+                <span class="verify-code-around">
+                	看不清<br><p>换一换</p>
+                </span>
+                <span class="errtip"></span>
+         	</div>
+            <div title="截图" class="js-shot-video screen-btn"  id="screen-btnbi1" data-type="qa">
+            	<span onClick="jie1()">截图</span>
+            </div>
+            <input id="js-discuss-submit" class="r course-btn" value="发布" type="button">
+        </div>
+        <div id="use-credit-tip" class="use-credit-tip">
+            <span class="credit-info">本次提问将花费2个积分</span>
+            <a class="credit-rule" href="http://www.imooc.com/myclub/rule" target="_blank">为什么扣积分？</a>
+        </div>
+    </div>
+</div>
+
+<!--积分弹出框-->
+<div class="integral-pop" id="no-credit">
+    <div class="pop-con">
+        <span class="icon-point"></span>
+                    <p>本次提问将花费2个积分</p>
+                <p>你的积分不足，无法发表</p>
+        <a class="integral-rule" href="http://www.imooc.com/myclub/rule" target="_blank">为什么扣积分？</a>
+        <div class="ft clearfix">
+            <a href="javascript:void(0)" class="btn btn-green l cancel-cf">确认</a>
+            <a href="javascript:void(0)" class="btn btn-grey r cancel-cf">取消</a>
+        </div>
+    </div>
+</div>
+<div class="integral-pop" id="enough-credit">
+    <div class="pop-con">
+        <span class="icon-point"></span>
+                    <p>本次提问将花费2个积分</p>
+                <p>继续发表请点击 "确定"</p>
+        <a class="integral-rule" href="javascript:void(0)" target="_blank">为什么扣积分？</a>
+        <div class="ft clearfix">
+            <a id="interal-use" href="javascript:void(0)" class="btn btn-green l">确认</a>
+            <a id="interal-cancel" href="javascript:void(0)" class="btn btn-grey r">取消</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!-- 会员职位信息 -->
+<table id="position_info" data-options="fit:true"></table>
+<script>
+	$(function(){
+		var datagrid;
+		var editRow=undefined;
+		var op;
+		var flag;
+		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
+		datagrid=$('#position_info').datagrid({
+			url:'../userServlet',
+			queryParams:{op:"getPositionInfo"},
+			fitColumns:true,
+			striped:true,
+			loading:"数据加载中",
+			pagination:true,
+			rownumbers:true,
+			
+			columns:[[
+				{field:'posnos',title:'选择',width:100,align:'center',checkbox:true},
+				{field:'posno',title:'职位编号',width:100,align:'center',sortable:true},
+				{field:'posname',title:'职位名',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+				{field:'status',title:'状态',width:100,align:'center',editor:{type:"combobox",options:{
+					required:true,valueField:'sid',textField:'sname',data:statusObj}},
+					formatter:function(value,row,index){
+						for(var i=0;i<statusObj.length;i++){
+							if(statusObj[i].sid==value){
+								return statusObj[i].sname;
+							}
+						}
+						return value;
+					}
+				}
+			]],
+			toolbar: [{
+				text:"添加",
+				iconCls: 'icon-add',
+				handler: function(){
+					op="addPositionInfo";
+					flag="添加";
+					if(editRow!=undefined){
+						datagrid.datagrid("rejectChanges");
+						datagrid.datagrid("endEdit",editRow);
+						editRow=undefined;
+					}else{
+						datagrid.datagrid("insertRow",{index:0,row:{}});
+						console.info("asdfasdf");
+						datagrid.datagrid("beginEdit",0);
+						editRow=0;
+					}
+					}
+				},{
+				text:"修改",
+				iconCls: 'icon-edit',
+				handler: function(){
+					var rows=datagrid.datagrid("getChecked")[0];
+					if(rows==undefined){
+						$.messager.show({
+									title:'温馨提示',
+									msg:'请要选择您要修改的数据....',
+									timeout:2000,
+									showPosition:'slide'
+								});
+					}else{
+						op="updatePositionInfo";
+						flag="修改";
+						if(editRow!=undefined){
+							datagrid.datagrid("rejectChanges");
+							datagrid.datagrid("endEdit",editRow);
+							editRow=undefined;
+						}else{
+							var index=datagrid.datagrid("getRowIndex",rows);
+							datagrid.datagrid("updateRow",{index:index,row:rows});
+							datagrid.datagrid("beginEdit",index);
+							editRow=index;
+						
+						}
+					}
+					}
+				},{
+				text:"删除",
+				iconCls: 'icon-remove',
+				handler: function(){
+					var rows=datagrid.datagrid("getChecked");
+					if(rows.length<=0){
+						$.messager.show({
+									title:'温馨提示',
+									msg:'请要选择您要删除的数据....',
+									timeout:2000,
+									showPosition:'slide'
+								});
+					}else{
+						$.messager.confirm('信息确认','您确定要删除选中的数据吗 ？',function(r){
+							if(r){
+								var posnos="";
+								for(var i=0;i<rows.length-1;i++){
+									posnos+=rows[i].posno+",";
+								}
+								posnos+=rows[i].posno;
+								$.post("../userServlet",{op:"delPositionInfo",posnos:posnos},function(data){
+									data=parseInt($.trim(data));
+									if(data==1){
+										$.messager.show({
+											title:'删除提示',
+											msg:'职位信息删除成功....',
+											timeout:2000,
+											showPosition:'slide'
+										});
+										datagrid.datagrid("reload");
+									}else{
+										$.messager.alert('失败提示','职位信息删除失败....','error');
+									}
+								});
+							}
+						});
+					}
+					}
+				},{
+					text:"保存",
+					iconCls: 'icon-save',
+					handler: function(){
+						datagrid.datagrid("endEdit",editRow);
+						var rows=datagrid.datagrid("getChanges")[0];
+						if(rows==undefined){
+							datagrid.datagrid("rejectChanges");
+							datagrid.datagrid("endEdit",editRow);
+							editRow=undefined;
+						}else{
+							rows["op"]=op;
+							$.post("../userServlet",rows,function(data){
+								data=parseInt($.trim(data));
+								if(data==1){
+									$.messager.show({
+										title:'成功提示',
+										msg:'职位信息'+flag+'成功....',
+										timeout:2000,
+										showPosition:'slide'
+									});
+								}else{
+									$.messager.alert('失败提示','职位信息'+flag+'失败....','error');
+								}
+								rows=null;
+								datagrid.datagrid("reload");
+								editRow=undefined;
+								datagrid.datagrid("rejectChanges");
+								datagrid.datagrid("unselectAll");
+							});
+						}
+					}
+				},{
+					text:'撤销',
+					iconCls:'icon-redo',
+					handler:function(){
+						datagrid.datagrid("rejectChanges");
+							datagrid.datagrid("endEdit",editRow);
+							editRow=undefined;
+					
+					}
+				
+					}]
+			
+		});
+	});
+</script>
+

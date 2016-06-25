@@ -1,0 +1,1436 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0 auto;
+	padding:0;
+}
+.clearfix:after{
+	content:'\0020';
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden; }
+.clearfix{
+	*zoom:1;}
+p{
+	display:inline;}
+body {
+  overflow-y: scroll;
+	width:100%;
+}
+#header{
+	width:100%;
+	height:60px;
+	background:#14191E;
+}
+.l {
+	width:600px;
+	height:60px;
+	margin-left:0px;
+	list-style:none;}
+.l .nv{
+	float: left;
+	color: #999;
+	/* [disabled]text-decoration:none; */
+}
+.nv-goback{
+	line-height:60px;
+	width:70px;
+	height:60px;
+	text-align:center;
+	}
+.nv-goback:hover{
+	background:#363C41;}
+.nv-goback .revert .head_turn_left{
+	display:inline-block;
+	height:18px;
+	width:12px;
+	background:url(../images/2016-01-12_000736.png) no-repeat center center;
+}
+.nv-goback:hover .revert  .head_turn_left{
+	background:url(../images/2016-01-12_010600.png) no-repeat center center;
+}
+
+.chaptername{
+	line-height:60px;
+	padding:0 16px 0 16px;
+	height:60px;
+	text-decoration:none;
+	font-size:13px;
+	} 
+.chaptername span{
+	color:#B5B9BC;
+	}
+.chaptername p{
+	font-size:12px;
+	display:inline;
+	margin-left:10px;
+	color:#787D82;}
+.nv-follow {
+  
+  line-height:60px;
+ 
+}
+.nv-follow:hover{
+	background:#363C41;
+}
+ .nv-follow:hover a{
+	color:#FFF;
+	background:url('../images/2016-01-12_165548.png') no-repeat center left;
+	}
+.nv-follow .guan{
+	background:url('../images/hongxin.png') no-repeat center left;
+}
+.nv-follow:hover .guan{
+	background:url('../images/hongxin.png') no-repeat center left;
+}
+
+
+
+.nv-follow a {
+	display:block;
+	width:30px;
+	height:60px;
+  	padding-left: 30px;
+ 	text-decoration:none;
+  	color: #787d82;
+  	font-size: 12px;
+  	background:url('../images/2016-01-12_165306.png') no-repeat center left;
+}
+.nv-share{
+	margin-left:20px;
+	margin-top:20px;
+	height:20px;
+	font-size:13px;
+	padding-left:20px;
+	line-height:20px;
+	border-left:1px solid #363c40;
+	}
+#studyMain{
+	width:100%;
+	height:527px;
+  	background-color: #000;
+	}
+/*视频部分*/
+.video-con{
+	float:left;
+	width:100%;
+	height:527px;
+	overflow:hidden;
+	margin-top:-1px;
+	
+	}
+.js-box-wrap{
+	float:left;
+	}
+.section-list{
+	position:relative;
+	float:right;
+	margin-right:-360px;
+	height:527px;
+	width:360px;
+	background:#14191E;
+	border-top:1px solid #1D2227;
+	}
+.section-list .operator{
+	float:left;
+	margin-top:172px;
+	width:50px;
+	height:184px;
+	margin-left:-50px;}
+.operator .op{
+	text-align:center;
+	width:50px;
+	height:60px;
+	background:#363C40;
+	line-height:60px;
+	font-size:13px;
+	color:#FFF;}
+.operator .op:hover{
+	background:#F01400;}
+.operator .notes{
+	margin:2px 0;
+	}
+.operator .chapter {
+	margin-bottom:2px;
+	}
+	
+.nano{
+	height:527px;
+	width:360px;
+	} 
+.nano-content{
+	width:100%;
+	height:100%;
+	}
+.nano-content h3{
+	width:300px;
+	height:20px;
+	margin-top:20px;
+	font-size:16px;
+	color:#B5B9BC;
+	 }
+.nano-content ul{
+	list-style:none;
+	margin-top:30px;}
+.nano-content ul li{
+	text-decoration:none;
+	width:300px;
+	height:21px;
+	font-size:12px;
+	margin-top:15px;
+	color:#787D82;}
+.nano-content ul li a{
+	text-decoration:none;
+	color:#787D82;
+	padding-left:16px;
+  	background:url(../images/2016-01-13_092252.png) no-repeat center left;
+	}
+
+.nano-content ul li a:hover{
+	color:#00B33B;
+	background:url(../images/2016-01-13_092316.png) no-repeat center left;}
+.nano-content ul li i{
+	color:#00B33B;
+	font-style:normal;
+	float:right;
+	}
+.nano-content ul .sec-title{
+	font-size:14px;
+	padding-bottom:10px;}
+.next-box{
+	width:100%;
+	height:527px;
+	display:none;
+	}
+.next-box-inner{
+	width:100%;
+	height:527px;}
+	
+.course-tip-layer{
+	width:600px;
+	padding-top:200px;
+	vertical-align:middle;
+	text-align:center;
+	}
+.J-next-auto{
+	display:none;}
+.course-tip-layer h2{
+	font-size:16px;
+	color:#FFFFFF;}
+.course-tip-layer h2 span{
+	color:#787D82;}
+.J-next-btn{
+	width:140px;
+	height:40px;
+	text-align:center;
+	line-height:40px;
+	color:#FFF;
+	margin-top:40px;
+	margin-bottom:20px;
+	background:#CC0000;}
+
+.course-tip-layer a{
+	text-decoration:none;
+	font-size:14px;
+	color:#787D82;
+	}
+.course-tip-layer a:hover{
+	color:#CC0000;}
+
+.course-subcontainer {
+  width: 1200px;
+  margin: 0 auto;
+ /* height:auto;*/
+}
+.course-left{
+	float: left;
+  	width: 880px;
+	/* height:auto;*/
+ 
+  }
+.course-left .course-menu{
+	position:relative;
+	width: 880px;
+	height:71px;
+	 list-style:none;
+	 border-bottom:1px solid #D0D6D9;}
+.pl-content{
+	padding-top:30px;
+	}
+.course-menu-item{
+	text-align:center;
+	width:120px;
+	height:100%;
+	float:left;
+	}
+.course-menu-item a{
+	display:block;
+	width:120px;
+	height:70px;
+	line-height:60px;
+	text-decoration:none;
+	color:#14191E;
+	font-size:16px;
+	}
+.course-menu-item a:hover{
+	color:#F01400;
+	}
+.course-menu-item .active{
+	width:120px;
+	font-weight: 600;
+	color:#F01400;
+	border-bottom:2px solid #F01400;
+	}
+.lists-container{
+	width:100%;
+	}
+
+.pl-input-inner{
+	margin-top:30px;
+	width:880px;
+	height:84px;
+	border:1px solid #D3DCE0;
+	
+	/*box-shadow: 0 0 10px  #333;*/}
+ .pl-input-inner .js-placeholder{
+	width:870px;
+	height:60px;
+	padding:5px 5px 0px 5px;
+	border:0px;
+	font-size:13px;
+	resize:none;}
+.num-limit{
+	float:right;
+	display:block;
+	text-align:right;
+	height:15px;
+	width:50px;
+	margin-right:5px;
+	
+	display:block;
+	color:#D0D6D9;
+	
+	font-size:12px;}
+.pl-input-btm{
+	width:880px;
+	height:40px;
+	padding:35px 0;
+	border-bottom:1px solid #F1F2F3;}
+.pl-input-btm .verify-code{
+	display:none;
+	}
+.pl-input-btm .r{
+	float:right;
+	color:#FFF;
+	width:120px;
+	height:40px;
+	border:0px;
+	background:#00B33B;}
+.pl-input-btm .r:hover{
+	background:#33A646;}
+.pl-container{
+	width:880px;
+	height:138px;
+	border-bottom:1px solid #EDF1F2;
+}
+.pl-container ul{
+	list-style:none;
+	}
+.pl-container .pl-list{
+	height:98px;
+	padding:20px 0;}
+.pl-list .pl-list-avator a{
+	display:block;
+	float:left;
+	height:40px;
+	width:40px;}
+.pl-list .pl-list-main{
+	margin-left:60px;
+	width:820px;}
+.pl-list-nick{
+	width:820px;
+	height:28px;
+	}
+.pl-list-nick a{
+	text-decoration:none;
+	color:#14191E;
+	font-size:12px;
+	}
+.pl-list-content{
+	line-height:28px;
+	font-size:14px;
+	width:820px;
+	height:28px;}
+.pl-list-btm{
+	width:820px;
+	height:26px;
+	margin-top:15px;
+	color:#B5C3D6;
+	font-size:13px;
+}
+.pl-list-btm .pl-list-time{
+	color:#B5C3D6;
+	font-size:13px; }
+.pl-list-btm .js-pl-praise{
+	float:right;
+	width:25px;
+	height:21px;
+	margin-top:3px;
+	text-decoration:none;
+	color:#B5BDD1;
+	} 
+.pl-list-btm .js-pl-praise:hover{
+	color:#F00;}
+
+.integral-pop{
+	display:none;}
+.adopt {
+  color: #00b33b;
+}
+.praise {
+  color: #99a1a6;
+}
+
+.course-right{
+	float: right;
+  width: 240px;
+ 
+	}
+.course-right .classmate h3{
+	height:51px;
+	width:240px;
+	padding-top:20px;
+	font-size:16px;
+	color:#14191E;
+	line-height:51px;
+	border-bottom:1px solid #D0D6D9;
+	} 
+.course-right .classmate h3 span{
+	width:40px;
+	height:17px;
+	margin-left:2px;
+	font-size:12px;}
+.course-right .classmate h3 a{
+	font-size:12px;
+	text-decoration:none;
+	width:36px;
+	height:51px;
+	float:right;
+	color:#787D82;}
+.course-right .classmate h3 a:hover{
+	color:#F00;}
+.users_wrap{
+	width:300px;}
+.users_wrap .mate-avator{
+	display:inline-block;
+	width:40px;
+	height:40px;
+	margin-top:20px;
+	margin-right:26px;
+	}
+.users_wrap .mate-avator img{
+	width:40px;
+	height:40px;
+	border-radius:50%;}
+
+.course-about {
+  width:1200px;
+  height:192px;
+  overflow: hidden;
+  margin-bottom:50px;
+  padding-top:30px;
+}
+.course-about-tit{
+	height:20px;
+	width:100%;}
+.course-about-tit h3{
+	font-size:14px;
+	float:left;}
+.course-about-tit span{
+	border-left:1px solid #D0D6D9;
+	padding-left:21px;
+	width:24px;
+	height:14px;
+	color:#F01400;
+	font-size:12px;
+	margin-left:20px;
+	margin-top:6px;
+	}
+.con-wrap{
+	width:1274px;
+	margin-top:30px;
+	list-style:none;}
+.con-wrap li{
+	float:left;
+	width:200px;
+	height:142px;
+	margin-right:50px;
+	}
+.con-wrap li img{
+	width:200px;
+	height:112px;}
+.con-wrap li a{
+	text-decoration:none;}
+.con-wrap li p{
+	margin-top:10px;
+	height:20px;
+	width:200px;
+	font-size:12px;
+	
+	color:#14191E;
+	}
+.con-wrap li p:hover{
+	color:#F01400;}
+.noteLoadListData{
+	width:880PX;
+	height:auto;
+	}
+#noteLoadListData .course-tool-bar{
+	width:865px;
+	height:40px;
+	padding-right:15px;
+	background:#F9F9F9;
+	}
+.course-tool-bar .tool-left{
+	line-height:40px;
+	height:40px;
+	width:400px;
+	float:left;
+	}
+.course-tool-bar .tool-right{
+	line-height:40px;
+	width:72px;
+	height:40px;
+	float:right;}
+.course-tool-bar .tool-left .sort-item{
+	width:24px;
+	height:40px;
+	margin:0 20px;
+	float:left;
+	text-decoration:none;
+	font-size:12px;
+	color:#787D90;}
+.course-tool-bar .tool-left .active{
+	color:#14191E;
+	}
+.course-tool-bar .tool-right .js-ower{
+	
+	text-decoration:none;
+	color:#787D82;
+	width:48px;
+	height:18px;
+	padding-left:24px;
+	font-size:12px;
+	}
+
+#qaLoadListData{
+	width:880px;}
+.course-left:after{
+	content:'\0020';}
+#qaLoadListData:after{
+	content:'\0020';
+	}
+.sortlist{
+	width:100%;
+	height:40px;
+	background:#F6F6F6;
+	}
+.sortlist .quealltab{
+	line-height:40px;
+	float:left;
+	text-decoration:none;
+	font-size:12px;
+	width:24px;
+	height:40px;
+	padding:0 20px;
+	color:#787D82;
+	}
+.sortlist .quealltab:hover{
+	color:#14191E;}
+	
+.sortlist .onactive{
+	color:#14191E;
+}
+	
+.answertabcon{
+	width:880px;
+	/*height:289px;*/}
+/* 有问题时 */
+.wenda-listcon {
+  position: relative;
+  padding: 0px 0 30px 120px;
+  border-bottom: 1px solid #edf1f2;
+  overflow: hidden;
+  margin-top: 30px;
+}
+.wenda-listcon a{
+	text-decoration:none;
+}
+.wenda-listcon .headslider {
+  position: absolute;
+  left: 0;
+  top: 0px;
+  width: 120px;
+  overflow: hidden;
+  text-align: center;
+}
+.wenda-listcon .headslider .wenda-head {
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  margin: 0 auto 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ccc;
+}
+.wenda-listcon .headslider .wenda-nickname {
+  display: block;
+  text-align: center;
+  line-height: 16px;
+  color: #787d82;
+  font-size: 12px;
+  vertical-align: middle;
+  padding: 0 10px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.wenda-listcon .headslider .wenda-nickname:hover {
+  color: #f01400;
+}
+
+.wendaslider {
+  padding-right: 135px;
+  min-height: 85px;
+  position: relative;
+  overflow: hidden;
+}
+.wendaslider .wendaquetitle {
+  position: relative;
+  font-size: 14px;
+  line-height: 20px;
+  color: #363d40;
+}
+.wendaslider .wendaquetitle i {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
+  text-align: center;
+  line-height: 20px;
+}
+.wendaslider .wendaquetitle i.icon-tick-revert {
+  color: #00b33b;
+}
+.wendaslider .wendaquetitle i.icon-ques-revert {
+  color: #0088cc;
+}
+.wendaslider .wendaquetitle i.icon-ad {
+  color: #0edfdd;
+}
+.wendaslider .wendaquetitle .wendatitlecon {
+  padding-left: 26px;
+  word-break: break-all;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+.wendaslider .wendaquetitle .wendatitle p {
+	display:inline-block;
+  font-size: 14px;
+  color: #14191e;
+  font-weight: 600;
+  line-height: 20px;
+  font:normal;
+}
+.wendaslider .wendaquetitle .wendatitle:hover p {
+  color: #f01400;
+}
+.wendaslider .wendaquetitle .wendatitle .wait-answer {
+  margin-left: 7px;
+}
+.wendaslider .wendaquetitle .icon-ding {
+  display: inline-block;
+  color: #f01400;
+}
+.wendaslider .replymegfooter {
+  padding-left: 26px;
+  margin-top: 20px;
+  color: #b5b9bc;
+  font-size: 12px;
+}
+.wendaslider .replymegfooter em {
+  font-style: normal;
+  display: inline-block;
+}
+.wendaslider .replymegfooter .formcourse {
+  color: #999;
+  font-size: 12px;
+  margin-left: 30px;
+}
+.wendaslider .replymegfooter .formcourse:hover {
+  color: #333333;
+}
+
+
+.replycont {
+  margin-top: 10px;
+  position: relative;
+}
+.replycont i {
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  font-size: 12px;
+  line-height: 14px;
+  color: #b5b9bc;
+}
+.replycont .replydes {
+  margin-left: 26px;
+  color: #787d82;
+  font-size: 12px;
+  line-height: 24px;
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
+}
+.replycont .replydes .replysign {
+  font-size: 12px;
+  line-height: 20px;
+}
+.replycont .replydes .nickname {
+  color: #14191e;
+  font-size: 12px;
+  line-height: 20px;
+  margin-left: 23px;
+}
+.replycont .replydes .nickname:hover {
+  color: #f01400;
+}
+.replycont .replydes .replyuserhead {
+  border-radius: 10px;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: absolute;
+  top: 2px;
+}
+.replycont .replydes .wait-answer {
+  margin-right: 16px;
+}
+.replycont .replydes .myanswer {
+  font-weight: bold;
+}
+.wendaslider .replynumber {
+  font-size: 12px;
+  position: absolute;
+  top: -10px;
+  right: 0px;
+  height: 51px;
+  color: #787d82;
+}
+.wendaslider .replynumber .number {
+  line-height: 12px;
+  height: 12px;
+  text-align: center;
+  padding: 7px 0 0 0;
+}
+.wendaslider .replynumber .padAjust {
+  padding: 0;
+}
+.wendaslider .replynumber .numShow {
+  font-weight: normal;
+  font-size: 14px;
+}
+.wendaslider .replynumber .smallfont {
+  font-size: 12px;
+  font-style: normal;
+}
+.wendaslider .ys,
+.wendaslider .browsenum {
+  float: left;
+  width: 50px;
+  height: 31px;
+  margin: 10px 0;
+}
+.wendaslider .hasanswernum .ys .number {
+  color: #00b33b;
+}
+.wendaslider .wait-answer {
+  color: #ff7802;
+  font-size: 12px;
+}
+.wendaslider .wait-answer strong {
+  font-weight: bold;
+}
+.wendaslider .split-l {
+  display: inline-block;
+  height: 12px;
+  width: 1px;
+  vertical-align: -2px;
+  background-color: #d0d6d9;
+  margin: 0 7px 0 9px;
+}
+.wendaslider .myanswer,
+.wendaslider .what-credit {
+  color: #787d82;
+}
+.wendaslider .myanswer:hover,
+.wendaslider .what-credit:hover {
+  color: #14191e;
+}
+
+/* 没有问题时 */
+.answertabcon .unquestion{
+	display:block;
+	height:179px;
+	width:880px;
+	padding-top:80px;
+	padding-bottom:30px;
+	font-size:13px;
+	color:#787D82;
+	text-align:center;
+	}
+.answertabcon .unquestion .icon-ques{
+	display:block;
+	width:130px;
+	height:128px;
+	margin-bottom:30px;
+	background:url(../../images/2015-11-18_211236.gif);
+}
+#qaLoadListData .page{
+	display:block;
+	margin-top:40px;
+	width:100%;
+	height:40px;
+	
+	text-align: center;
+	} 
+#qaLoadListData .page .disabled_page{
+	display: inline-block;
+  	padding: 0 5px;
+  	height:29px;
+  	line-height:29px;
+	min-width: 20px;
+   	font-size: 14px;
+  	color: #c8cdd2;
+  	text-align: center;
+}
+#qaLoadListData .page a{
+	padding:0 5px;
+	display: inline-block;
+	text-decoration:none;
+	text-align: center;
+	height:29px;
+	line-height:29px;
+	min-width: 20px;
+	color:#787D82;
+	margin:0 5px;
+	border-bottom: 1px solid transparent;
+  	-webkit-transition: border-color 0.2s;
+  	-moz-transition: border-color 0.2s;
+  	transition: border-color 0.2s;}
+
+#qaLoadListData .page a:hover{
+  	color: #cc0000;
+  	border-color:#cc0000;
+}
+
+#qaLoadListData .page a.active{
+  background: #cc0000;
+  color: #FFFFFF;
+  border-color: transparent;
+}
+/*写笔记部分*/
+#note-publist{
+	position:absolute;
+	top:0px;
+	left:0px;
+	float:left;
+	width:100%;
+	height:100%;
+	}
+
+#note-publist .publish-wrap{
+	padding:0 20px;
+	margin-top:190px;
+	margin-left:350px;
+	width:610px;
+	height:280px;
+	background-color:#FFF;
+	float:left;
+	} 
+#note-publist .publish-wrap .pop-title{
+	
+	width:100%;
+	height:50px;
+	line-height:50px;
+	border-bottom:1px solid #D0D6D9;
+	}
+#note-publist .publish-wrap .pop-title h3{
+	float:left;
+	font-size:16px;
+	}
+#note-publist .publish-wrap .textarea-wrap{
+	width:568px;
+	height:73px;
+	padding:5px 5px 0px 5px;
+	margin:30px 10px 0 10px;
+	border:1px solid #D3DCE0;
+	color:#808386;
+	 
+	}
+#note-publist .publish-wrap .textarea-wrap .js-placeholder{
+	width:568px;
+	height:60px;
+	border:0px;
+	font-size:13px;
+	resize:none;
+	}
+	
+/*点击文本框时出现的特效以及和出错时使用到的特效*/
+#note-publist .publish-wrap .ipt-fake-focus {
+  border-color: #39b94e;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c6ebcc;
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c6ebcc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c6ebcc;
+}
+#note-publist .publish-wrap .space-fake-focus {
+  border-color: #4d5559;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d3d3d3;
+}
+
+
+
+
+#note-publist .publish-wrap .textarea-wrap p{
+	float:right;
+	font-size:10px;
+	height:10px;
+	color:#CCD3E0;}
+#note-publist .publish-wrap .pop-title a{
+	float:right;}
+#note-publist .publish-wrap .publish-note-btns{
+	width:590px;
+	height:40px;
+	padding-top:30px;
+	padding-bottom:30px;
+	margin:0 10px;} 
+.publish-wrap .publish-note-btns .screen-btn{
+  float: left;
+  width: 62px;
+  height: 24px;
+  background-color:#98a1a6;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-top: 8px;
+  }
+.publish-note-btns .screen-btn span {
+  display: block;
+  width: 52px;
+  height: 22px;
+  float:left;
+  border: 1px solid #d0d6d9;
+  background-color: #fff;
+  border-radius: 11px;
+  text-align: center;
+  color: #787d82;
+  font-size: 12px;
+  line-height: 22px;
+}
+.publish-wrap .publish-note-btns .on {
+  background:#00b33b;
+  
+  
+}
+.publish-note-btns .on span {
+  float: right;
+}
+.publish-note-btns .label-checked{
+	float:right;
+	width:41px;
+	height:40px;
+	line-height:40px;
+	padding:0 10px;
+	color:#909B9E;
+	font-size:12px;}
+.publish-note-btns .course-btn{
+	float:right;
+	width:120px;
+	height:40px;
+	background:#00B33B;
+	font-size:12px;
+	color:#FFF;
+	border:none;
+	
+	}
+.publish-note-btns .course-btn:hover{
+	background:#33A646;}
+	
+/*看截图时的样式*/
+#showpics{
+	position:absolute;
+	top:0px;
+	left:0px;
+	float:left;
+	width:100%;
+	height:100%;
+}
+#showpics .publish-wrap{
+	position:absolute;
+	top:55px;
+	left:260px;
+	width:800px;
+	height:494px;
+	background-color:#FFF;
+	float:left;
+}
+#showpics .guanbi{
+	clear:both;
+	float:right;
+	width:40px;
+	height:40px;
+}
+/*问答部分的样式*/
+#discus-publish{
+	position:absolute;
+	top:0px;
+	left:0px;
+	float:left;
+	width:100%;
+	height:100%;
+	
+		}
+#discus-publish .publish-wrap{
+
+	margin-top:90px;
+	margin-left:350px;
+	padding:0 20px;
+	width:610px;
+	height:450px;
+	background:#fff;
+	
+	}
+#discus-publish .publish-wrap .pop-title{
+	
+	width:100%;
+	height:50px;
+	line-height:50px;
+	border-bottom:1px solid #D0D6D9;
+	}
+#discus-publish .publish-wrap .pop-title h3{
+	float:left;
+	font-size:16px;
+	}
+#discus-publish .publish-wrap .pop-title a{
+	float:right;}
+#discus-publish .publish-wrap .qa-control-wrap{
+	width:100%;
+	height:40px;
+	margin-top:30px;
+	
+	}
+.publish-wrap .qa-control-wrap .question-area{
+	width:100%;
+	height:100%;
+}
+.qa-control-wrap .question-area .qa-control{
+	float:left;
+	width:512px;
+	height:22px;
+	padding:8px 8px 8px 8px;
+	margin:0 10px;
+	border:1px solid #D3DCE0;
+	}
+.qa-control-wrap .question-area .qa-control .js-placeholder{
+	border:none;
+	color:#808386;
+	font-size:13px;}
+.qa-control-wrap .question-area .another-meth{
+	text-decoration:none;
+	font-size:13px;
+	width:48px;
+	height:36px;
+	color:#00B33B;
+	}
+.qa-control-wrap .question-area .another-meth:hover{
+	color:#00802B;
+	}
+#discus-publish .publish-wrap .qa-control-wraps{
+	margin-top:30px;
+	width:610px;
+	height:202px;
+	}
+.publish-wrap .qa-control-wraps .qa-control{
+	width:590px;
+	height:202px;
+	margin:0 10px;
+	}
+.qa-control-wraps .qa-control .rich-text-editor{
+	width:590px;
+	height:202px;
+	}
+.qa-control-wraps .qa-control .rich-text-editor .edui-imooc{
+	width:590px;
+	height:191px;}
+.qa-control-wraps .qa-control .rich-text-editor .edui-imooc .edui-editor{
+	width:590;
+	height:191px;
+	}
+.rich-text-editor .edui-imooc .edui-editor .edui-toolbar{
+	width:584px;
+	height:34px;
+	background:#ECEEF0;
+	padding:2px 2px 2px 2px;
+	line-height:34px;
+}
+.rich-text-editor .edui-imooc .edui-editor .edui-editor-iframeholder{
+	width: 588px; 
+	height: 152px; 
+	}
+.edui-imooc .edui-editor .edui-editor-iframeholder .answert{
+	width:588px; 
+	height: 152px;
+	}
+.edui-editor .edui-editor-iframeholder .answert #verify-code-ipt{
+	width:588px; 
+	height: 152px;
+	border:0px;
+	font-size:13px;
+	resize:none; }
+.publish-wrap .discuss-bottom{
+	width:590px;
+	height:73px;
+	margin:0 10px;
+	padding-top:18px;} 
+.publish-wrap .discuss-bottom .verify-code{
+	width:262px;
+	height:57px;
+	margin-right:20px;
+	float:left;
+	}
+.publish-wrap .discuss-bottom .verify-code .verify-code-ipt{
+	float:left;
+	display:block;
+	width:118px;
+	height:30px;
+	padding:5px;
+	border:1px solid #D0D6D9;
+	}
+.publish-wrap .discuss-bottom .verify-code .img-code{
+	width:70px;
+	height:40px;
+	margin-left:10px;
+	float:left;
+	}
+.publish-wrap .discuss-bottom .verify-code .verify-code-around{
+	float:left;
+	display:block;
+	width:42px;
+	height:40px;
+	margin-left:10px;
+	font-size:13px;
+	} 
+.publish-wrap .discuss-bottom .verify-code .verify-code-around p{
+	color:#00B33B;
+	}
+.publish-wrap .use-credit-tip{
+	display:none;}
+.publish-wrap .discuss-bottom .js-shot-video{
+	width:62px;
+	height:24px;
+	margin-top:8px;
+	float:left;
+	background-color:#98a1a6;
+  	border-radius: 12px;
+  	overflow: hidden;
+  	cursor: pointer;
+ 	margin-top: 8px;
+	}
+.publish-wrap .discuss-bottom .js-shot-video span {
+  display: block;
+  width: 52px;
+  height: 22px;
+  float:left;
+  border: 1px solid #d0d6d9;
+  background-color: #fff;
+  border-radius: 11px;
+  text-align: center;
+  color: #787d82;
+  font-size: 12px;
+  line-height: 22px;
+}
+.publish-wrap .discuss-bottom .on {
+  background:#00b33b;
+  
+  
+}
+.publish-wrap .discuss-bottom .on span {
+  float: right;
+}
+.publish-wrap .discuss-bottom .course-btn{
+	width:120px;
+	height:40px;
+	float:right;
+	background:#00B33B;
+	font-size:12px;
+	color:#FFF;
+	border:none;
+	
+	}
+.publish-wrap .discuss-bottom .course-btn:hover{
+	background:#33A646;}
+.edui-imooc .edui-editor .edui-toolbar ul{
+	list-style:none;
+	}
+.edui-imooc .edui-editor .edui-toolbar ul li{
+	float:left;
+	width:30px;
+	height:30px;
+	margin:1px 1px 1px 1px;
+	}
+.edui-imooc .edui-editor .edui-toolbar ul .sel{
+	width:91px;
+	height:30px;
+	}
+#footer{
+	  background: #000000;
+  border-top: 1px solid #e2e4e6;
+  font-size: 12px;
+  color: #787d82;
+  padding:25px 0;
+  min-width: 620px;
+  }
+.footer_intro{
+	width:800px;
+	height:35px;
+	margin-left:100px;
+	}
+.footer_link ul{
+	list-style:none;
+	
+	}
+.footer_link ul li{
+	float:left;
+	margin-right:26px;}
+.footer_link ul a{
+	color:#999;
+	text-decoration:none;
+	}
+.footer_link ul a:hover{
+	color:#FFF;}
+.footer_intro p{
+	display: inline-block;
+	clear:both;
+	margin-top:10px;}
+/*笔记样式*/
+#course_note {
+  padding: 0px;
+}
+#course_note a{
+	text-decoration:none;
+}
+#course_note li {
+  border-bottom: 1px solid #edf1f2;
+  overflow: hidden;
+  padding-bottom: 20px;
+  padding-top: 20px;
+   position:relative;
+  width:100%;
+}
+#course_note .unquestion{
+	display:block;
+	height:179px;
+	width:880px;
+	padding-top:80px;
+	padding-bottom:30px;
+	font-size:13px;
+	color:#787D82;
+	text-align:center;
+}
+#course_note .unquestion .icon-ques{
+	display:block;
+	width:130px;
+	height:128px;
+	margin-bottom:30px;
+background:url(../../images/2015-11-18_211236.gif);
+	
+}
+#course_note .notelist_headpic {
+  float: left;
+  width: 40px;
+}
+#course_note .notelist_headpic a {
+  display: block;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+#course_note .notelist_headpic img {
+  display: block;
+}
+#course_note .notelist_content {
+  margin-left: 60px;
+}
+#course_note .u_name {
+  height: 20px;
+  margin-bottom: 10px;
+}
+#course_note .u_name a {
+  font-size: 12px;
+  line-height: 20px;
+  color: #14191e;
+}
+#course_note .u_name a:hover {
+  color: #f01400;
+}
+#course_note .notelist-content {
+  position: relative;
+  max-height: 168px;
+  /*max-height = (lineNumber + 1) * lineHeight*/
+  overflow: hidden;
+}
+#course_note .notelist-content p {
+  font-size: 14px;
+  line-height: 28px;
+  color: #14191e;
+  word-break: break-all;
+}
+#course_note .notelist-content .notelist-content-more {
+  position: absolute;
+  top: 140px;
+  /*top = lineNumber * lineHeight*/
+  left: 0;
+  right: 0;
+  height: 28px;
+  line-height: 28px;
+  background-color: #fff;
+}
+#course_note .notelist-content .notelist-content-more a {
+  font-size: 12px;
+  color: #787d82;
+}
+#course_note .notelist-content .notelist-content-more a:hover {
+  color: #00b33b;
+}
+.answercon {
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.answercon img {
+  overflow: hidden;
+  float: left;
+  cursor: pointer;
+}
+.answercon .answerImg {
+  float: left;
+  position: relative;
+}
+.answercon .answerImg i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 0 5px;
+  font-size: 12px;
+  line-height: 20px;
+  color: #fff;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.answercon p a {
+  color: #868686;
+  cursor: pointer;
+}
+.answercon .answerImg:hover i {
+  display: none;
+}
+.hover-area {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.hover-area a,
+.hover-area span {
+  height: 100%;
+  line-height: 88px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  cursor: pointer;
+}
+.hover-area a {
+line-height: 90px;
+  float: left;
+  width: 100%;
+  background-color:#000;
+	opacity:0.3;
+	position:absolute;
+	z-index:0;
+	 -webkit-transition: .3s;
+  transition: .3s;
+  margin: 0px 0px 0px -100%;
+}
+.hover-area:hover a{
+	 -webkit-transform: translate(100%);
+  -ms-transform: translate(100%);
+  transform: translate(100%);
+}
+.hover-area .slider-door {
+ 
+ 
+}
+
+.hover-area .catch-video {
+ 
+}
+.notelist-bottom {
+  color: #b5b9bc;
+  font-size: 12px;
+  margin-top: 20px;
+}
+.notelist-bottom .notelist-actions {
+  float: right;
+}
+.notelist-bottom .notelist-actions a {
+  color: #b5b9bc;
+  cursor: pointer;
+  margin-left:0px;
+}
+.notelist-bottom .notelist-actions a:hover{
+	color: #F01400;
+}
+.notelist-bottom .notelist-actions a:hover p{
+	background:url(../images/2016-01-12_185829.png) no-repeat center center;
+}
+.notelist-bottom .notelist-actions a p {
+  display:inline-block;
+  padding-left:40px;
+   background:url(../images/2016-01-12_185754.png) no-repeat center center;
+}
+/*背景的样式*/
+.bg {
+	background-color: #333;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	opacity: 0.5;
+	position: fixed !important;
+	position: absolute;
+}
+
+.replydet p img{
+	width: 100px;
+}
+
+

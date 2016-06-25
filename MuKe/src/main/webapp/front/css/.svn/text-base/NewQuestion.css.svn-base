@@ -1,0 +1,198 @@
+@charset "utf-8";
+/* CSS Document */
+.container{
+	width:1200px;
+	margin:40px 74px 0 74px;
+}
+
+.container-left{
+	width:840px;
+	float:left;
+	margin-bottom: 20px;
+}
+
+/*发新问题*/
+.new-title{
+	height:40px;
+	border-bottom:1px solid #ccc;
+}
+.new-title h4{
+	font-weight:200;
+}
+
+/*问题相关*/
+.question-body ul{
+	margin-top:20px;
+	list-style:none;
+}
+
+.question-body ul li{
+	display:inline-block;
+	height:auto;
+	height:40px;
+	line-height:40px;
+	width:100%;
+	text-align:left;
+	color:#787d82;
+	font-size:14px;
+	margin-bottom:34px;
+}
+
+/*分类*/
+.question-class{
+	display:inline-block;
+	width:120px;
+	height:40px;
+	background:#EBF8ED;
+	color:#39B94E;
+	text-align:center;
+	border:1px solid #39B94E;
+}
+
+/*问题标题*/
+.question-text{
+	width:776px;
+	border:1px solid #ccc;
+	padding:10px 10px 10px 10px;
+}
+
+.question-title-hint{
+	color:red;
+	margin-left:43px;
+}
+
+/*内容*/
+#special{
+	height:291px;
+}
+
+.neirong{
+	float:left;
+}
+
+.question-mainbody{
+	width:796px;
+	height:280px;
+	margin-left:43px;
+}
+.question-mainbody-title{
+	width:100%;
+	height:34px;
+	background:#0F0;
+}
+#content{
+	height: 200px;
+}
+/*
+#container{
+	display:inline-block;
+	width:100%;
+	height:400px;
+	resize:none;
+	border:0px;
+}
+*/
+
+/*标签*/
+.question-lable{
+	margin-top:15px;
+	margin-left:43px;
+	line-height:30px;
+}
+
+.labels{
+	background:#EDF1F2;
+	padding:5px 5px 5px 5px;
+	font-size:14px;
+	cursor:pointer;
+	text-decoration:none;
+	color:#787d82;
+}
+.labels:hover{
+	background:#D0D6D9;
+	color:black;
+}
+
+/*验证码*/
+.verificationcode{
+	margin-top:34px;
+	margin-left:43px;
+	height:40px;
+	line-height:20px;
+}
+
+.verificationcode input{
+	width:180px;
+	height:40px;
+	float:left;
+	padding:0 8px 0 8px;
+	margin-right:10px;
+}
+
+.verificationcode img{
+	float:left;
+	margin-right:10px;
+}
+
+/*发布*/
+.issue{
+	margin-top:34px;
+	margin-left:43px;
+	display:inline-block;
+	width:182px;
+	height:40px;
+	background:#00B33B;
+	text-decoration:none;
+	color:white;
+	line-height:40px;
+	text-align:center;
+}
+
+.issue:hover{
+	background:#00CE44;
+}
+
+/*右边*/
+.container-right{
+	width:280px;
+	float:right;
+}
+
+/*发问题发问题发问题*/
+.newquestions{
+	color:#FF9600;	
+}
+
+.newquestions img{
+	float:left;
+	margin-right:10px;
+}
+
+/*上面写的没有错*/
+.container-right dl{
+	margin-top:20px;
+	line-height:25px;
+	font-size:12px;
+	color:#787d82;
+}
+
+.container-right dl dt{
+	color:black;
+	font-weight:bold;
+	font-size:14px;
+}
+
+/*热门标签*/
+.hotlabel{
+	margin-top:20px;
+}
+
+.hotlabel h4{
+	font-weight:200;
+	height:38px;
+	border-bottom:1px solid #ccc;
+}
+
+.labels-div{
+	margin-top:20px;
+}

@@ -1,0 +1,228 @@
+<!-- 章节信息管理 -->
+<table id="chapter_infos" data-options="fit:true"></table>
+
+<div  id="toolutils" style="width:100%;text-align:left">
+	<a id="" class="l-btn l-btn-plain" href="javascript:updateChapterInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-edit l-btn-icon-left">修改</span>
+		</span>
+	</a>
+	
+	<a id="" class="l-btn l-btn-plain" href="javascript:delChapterInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-remove l-btn-icon-left">删除</span>
+		</span>
+	</a>
+	<a id="" class="l-btn l-btn-plain" href="javascript:saveChapterInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-save l-btn-icon-left">保存</span>
+		</span>
+	</a>
+	<a id="" class="l-btn l-btn-plain" href="javascript:redoChapterInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-redo l-btn-icon-left">撤销</span>
+		</span>
+	</a>
+		
+	<span>标题:</span><input type="text" name="title" id="chaptername" />
+	<span>课程:</span><select name="typeInfo" id="typeInfo">
+		<option value="0">全部</option>
+	</select>
+	<a href="javascript:findChapterByInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+</div>
+<script>
+
+	$(function(){
+		$.post("../courseServlet",{op:"findCourseNameAndId"},function(data){
+			var obj=$("#typeInfo");
+			var opt;
+			$.each(data.courseNameAndId,function(index,item){ //将所有的课程名称赋值给select
+				opt="<option value='"+item.cno+"'>"+item.cname+"</option>";
+				obj.append($(opt));
+			});
+		},"json");
+	})
+
+	
+	var datagrid=$("#chapter_infos");
+	var editRow=undefined;
+	var op;
+
+	$(function(){
+		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'},{sid:2,sname:'待审核'}];
+
+		datagrid.datagrid({
+			url:'../chapterServlet',
+			queryParams:{op:"getPageChapterInfo"},
+			fitColumns:true,
+			striped:true,
+			loadMsg:"数据加载中...",
+			pagination:true,
+			rownumbers:true,
+			sortName:'chapterno',
+			remoteSort:false,
+			columns:[[
+				{field:'chapternos',title:'全选',width:100,align:'center',checkbox:true},
+				{field:'chapterno',title:'章节编号',width:100,align:'center',sortable:true},
+				{field:'chaptername',title:'章节名',width:100,align:'center'},
+		        {field:'cname',title:'课程名',width:100,align:'center'},
+		        {field:'_operate',title:'操作',width:20,align:'center',
+		        	formatter:function(value,rowData,index){
+		        		return '<a class="icon-search1 icon-padding" href="javascript:showChapterDetail(\''+rowData.chapterno+'\')">详细</a>';
+		        	}	
+		        },
+		        {field:'status',title:'状态',width:30,align:'center',editor:{type:"combobox",options:{
+		        	required:true,valueField:'sid',textField:'sname',data:statusObj}},
+		        	formatter:function(value,row,index){
+		        		for(var i=0;i<statusObj.length;i++){
+		        			if(statusObj[i].sid==value){
+		        				return statusObj[i].sname;
+		        			}
+		        		}
+		        		return value;
+		        	}
+		        }
+			]],
+			toolbar:"#toolutils"
+		});
+	});
+	
+	function showChapterDetail(chapterno){
+		var rows=datagrid.datagrid("getChecked")[0];
+		$("#chapter_detail").dialog("open");
+		$.post("../chapterServlet",{op:"getChapterDetailByCid",chapterno:chapterno},function(data){
+			var sname=['不可用','可用','未审核'];
+			
+			$("#chapter_id").val(chapterno);
+			$("#chapter_name").val(data.chapterInfo[0]['chaptername']);
+			$("#course_name").val(data.chapterInfo[0]['cname']);
+			$("#chapter_status").val(sname[data.chapterInfo[0]['status']]);
+			$("#chapter_content").html(data.chapterInfo[0]['chaptercontent']);
+			$("#chapter_sort").val(data.chapterInfo[0]['chapterNum']);
+		},"json");
+	}
+	
+	function updateChapterInfo(){
+		//获取要修改的行
+		var rows=datagrid.datagrid("getChecked")[0];
+		if(rows==undefined){
+			$.messager.show({
+				title:'温馨提示',
+				msg:'请您选择要操作的数据',
+				timeout:2000,
+				showType:'slide'
+			});
+		} else{
+			op="updateChapterStatus";
+			if(editRow!=undefined){ //说明有行正在被编辑，则还原当前的修改
+				datagrid.datagrid("rejectChanges"); //回滚自创建以来或自上次调用AcceptChanges，所有的变化数据。
+				datagrid.datagrid("endEdit",editRow); //关闭当前正在编辑的行
+				editRow=undefined;
+			} else{
+				//获取当前选择行的索引
+				var index=datagrid.datagrid("getRowIndex",rows);
+			
+				datagrid.datagrid("updateRow",{index:index,row:rows});
+			
+				//打开编辑器
+				datagrid.datagrid("beginEdit",index);
+				editRow=index; //记录当前正在被编辑的行
+			}
+		}
+	}
+	
+	function delChapterInfo(){
+		var rows=datagrid.datagrid("getChecked");
+		if(rows.length<=0){
+			$.messager.show({
+				title:'温馨提示',
+				msg:'请您选择要删除的数据',
+				timeout:2000,
+				showType:'slide'
+			});
+		} else{
+			$.messager.confirm('信息确认','您确定要删除选中的数据吗?',function(r){
+				if(r){
+					var chapternos="";
+					for(var i=0;i<rows.length-1;i++){
+						chapternos+=rows[i].chapterno+",";
+					}
+					chapternos+=rows[i].chapterno;
+					$.post("../chapterServlet",{op:"delChapter",chapternos:chapternos},function(data){
+						data=parseInt($.trim(data));
+						if(data==1){
+							$.messager.show({
+								title:'成功提示',
+								msg:'章节删除成功',
+								timeout:2000,
+								showType:'slide'
+							});
+							datagrid.datagrid("reload");
+						} else{
+							$.messager.alert('失败提示','章节删除失败','error');
+						}
+					});
+				}
+			});
+		}
+	}
+	
+	function saveChapterInfo(){
+		datagrid.datagrid("endEdit",editRow); //关闭当前正在编辑的行
+		
+		//获取当前被修改的数据
+		var rows=datagrid.datagrid("getChanges")[0];
+		if(rows==undefined){
+			datagrid.datagrid("rejectChanges");
+			datagrid.datagrid("unselectAll");
+			editRow=undefined;
+		} else{
+			rows["op"]=op;
+
+			$.post("../chapterServlet",rows,function(data){
+				data=parseInt($.trim(data));
+				if(data==1){ //添加成功
+					$.messager.show({
+						title:'成功提示',
+						msg:'课程章节修改成功',
+						timeout:2000,
+						showType:'slide'
+					});
+				} else{
+					$.messager.alert('失败提示','课程章节修改失败','error');
+				}
+				rows=null;
+				datagrid.datagrid("reload"); //重新加载数据一次
+				editRow=undefined;
+				datagrid.datagrid("rejectChanges");
+				datagrid.datagrid("unselectAll");
+			});
+		}
+	}
+	
+	function redoChapterInfo(){
+		datagrid.datagrid("rejectChanges");
+		datagrid.datagrid("endEdit",editRow);
+		editRow=undefined;
+	}
+	
+	function findChapterByInfo(){
+		var chaptername=$("#chaptername").val();
+		var cno=$("#typeInfo").val();
+		
+		datagrid.datagrid({   
+		    url:'../chapterServlet',
+		    queryParams:{op:"findChapterByLike",chaptername:chaptername,cno:cno}
+		});
+	}
+</script>
+
+
+<div id="chapter_detail" class="easyui-dialog myinputdiv" title="章节详细" data-options="fit:true,iconCls:'icon-add',resizable:true,modal:true,closed:true">
+	<label>章节编号:</label><input type="text" id="chapter_id" readonly="readonly" /><br /><br />
+	<label>章节名称:</label><input id="chapter_name" readonly="readonly" /><br /><br />
+	<label>课程名称:</label><input type="text"  id="course_name" readonly="readonly" /><br /><br />
+	<label>章节顺序:</label><input type="text"  id="chapter_sort" readonly="readonly" /><br /><br />
+	<label>章节状态:</label><input type="text"  id="chapter_status" readonly="readonly" /><br /><br />
+	<label>章节内容:</label><div id="chapter_content"></div>
+</div>

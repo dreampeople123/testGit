@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.muke.mapper.CommentMapper" >
+	<!-- CommentBean的resultMap -->
+	<resultMap type="CommentBean" id="CommentBeanMap">
+		<id property="coNo" column="coNo"/>
+		<association property="user" column="uNo" select="findUserByNo"/>
+		<association property="chapter" column="chNo" select="findChapterByNo"></association>
+	</resultMap>
+	<resultMap type="ChapterBean" id="ChapterBeanMap">
+		<id property="chNo" column="chNo"/>
+		<association property="course" column="cNo" select="findCourseBycNo"/>
+	</resultMap>
+	<select id="findUserByNo" parameterType="string" resultType="Users">
+		select * from users where uNo=#{uNo}
+	</select>
+	<select id="findChapterByNo" parameterType="string" resultMap="ChapterBeanMap">
+		select * from chapter where chNo=#{chNo}
+	</select>
+	<select id="findCourseBycNo" parameterType="string" resultType="CourseBean">
+		select ctDirname,ctName,dName,c.* from deeply e,course c,ctype ct where e.dNo=c.dNo and  ct.ctNo=c.ctNo and cStatus!=1 and c.cNo=#{cNo}
+	</select>
+
+	<!-- 找到所有的评论信息 -->
+	<select id="getAllComment" parameterType="CommentBean" resultMap="CommentBeanMap">
+		select * from (select a.*,rownum rn from (select * from comments where coStatus!=1  
+		<if test="user != null ">
+			and uNo=#{user.uNo} 
+		</if>
+		order by chNo) a where #{pagea}>=rownum) b where rn>#{pageb} 
+	</select>
+	
+	<!-- 获取当前评论的总数 -->
+	<select id="getCommentTotal" parameterType="CommentBean" resultType="int">
+		select count(1) from comments   
+		<where>
+		coStatus!=1 
+		<if test="chNo != null and chNo != '0' and chNo != ''">
+			and chNo=#{chNo} 
+		</if>
+		<if test="user != null ">
+			and uNo=#{user.uNo} 
+		</if> 
+		</where>
+	</select> 
+	
+	<!-- 根据章节找到评论信息 -->
+	<select id="findCommentsByInfo" parameterType="CommentBean" resultMap="CommentBeanMap">
+		select * from (select a.*,rownum rn from (select * from comments where chNo=#{chNo} and coStatus!=1 order by coNo desc) a where #{pagea}>=rownum) b where rn>#{pageb}
+	</select>
+	
+	<!-- 删除评论信息 -->
+	<update id="delComments" parameterType="string">
+		<foreach collection="array" item="coNos" open="update comments set coStatus=1 where coNo in(" close=")" separator=",">
+			${coNos}
+		</foreach>
+	</update>
+	<!--根据章节找到评论信息点赞排序 -->
+	<select id="findCommentByDian" parameterType="CommentBean" resultMap="CommentBeanMap">
+		select * from (select a.*,rownum rn from (select * from comments where chNo=#{chNo} and coStatus!=1 order by coDianzannum desc ) a where #{pagea}>=rownum) b where rn>#{pageb}
+	</select>
+	<!-- 在视频界面添加评论信息 -->
+	<insert id="addComment" parameterType="Comments">
+	insert into comments values(seq_comments_coNo.nextval,#{uNo},#{chNo},#{coContent},#{coTime},0,#{coPic},'','','',2)
+	</insert>
+</mapper>

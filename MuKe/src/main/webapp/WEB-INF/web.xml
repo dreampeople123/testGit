@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+
+	<!-- spring容器生成配制 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<!-- spring配制文件所在的位置, *表示任何长度的任意字符 -->
+		<param-value>classpath:spring*.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- strturs框架的过滤器 -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+  	<filter>
+    	<filter-name>BackFilter</filter-name>
+    	<filter-class>com.dream.muke.filter.BackFilter</filter-class>
+    	<init-param>
+      		<param-name>backLoginPage</param-name>
+      		<param-value>backlogin/backlogin.jsp</param-value>
+    	</init-param>
+  	</filter>
+	
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher><!-- 设置拦截对象REQUEST-->
+        <dispatcher>FORWARD</dispatcher><!-- 设置拦截对象FORWARD -->
+	</filter-mapping>
+	 <filter>
+      <filter-name>encodingFilter</filter-name>
+      <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+      <init-param>
+       <param-name>encoding</param-name>
+       <param-value>utf-8</param-value>
+      </init-param>
+   </filter>
+   <filter-mapping>
+      <filter-name>encodingFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+   </filter-mapping>
+	
+	<filter-mapping>
+    	<filter-name>BackFilter</filter-name>
+    	<url-pattern>/back/*</url-pattern>
+  	</filter-mapping>
+	
+	<!-- 欢迎界面 -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

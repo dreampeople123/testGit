@@ -1,0 +1,32 @@
+body{
+	background:url(../wallPictures.jpg) no-repeat center center;
+}
+
+#test{
+	background:#FFF;
+	width:300px;
+	height:350px;
+	opacity:0.3;
+	float:right;
+	margin:140px 100px 0 0;
+}
+	
+#login{
+	float:right;
+	position:absolute;
+	width:250px;
+	right:130px;
+	top:200px;
+	z-index:20;
+}
+	
+.myinput{
+	margin-bottom:20px;
+	border:10px solid white;
+}
+	
+#mysub{
+	margin-top:50px;
+	padding:5px 20px 5px 20px;
+	cursor:pointer;
+}

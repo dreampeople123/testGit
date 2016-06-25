@@ -1,0 +1,177 @@
+<!-- 用户课程信息浏览-->
+
+<table id="ucourse_info" data-options="fit:true"></table>
+<div id="show_ucourse_info_find" style="width:100%,text-align:left">&nbsp; 
+
+	<a id="" class="l-btn l-btn-plain" href="javascript:changeUcourseInfoByInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-edit l-btn-icon-left">修改</span>
+		</span>
+	</a>
+	<a id="" class="l-btn l-btn-plain" href="javascript:saveUcourseInfoByInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-save l-btn-icon-left">保存</span>
+		</span>
+	</a>
+		<a id="" class="l-btn l-btn-plain" href="javascript:redoUcourseInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-redo l-btn-icon-left">撤销</span>
+		</span>
+	</a>
+	<span>会员名：</span><input type="text" name="title" id="show_ucourse_uname" />
+	<span>课程名：</span><input type="text" name="title" id="show_ucourse_cname" />
+	<span>是否关注：</span><select name="guan" id="guanzhu" class="myinput">
+			<option value="0">全部</option>
+			<option value="1">否</option>
+			<option value="2">是</option>
+		</select>
+	<a href="javascript:findUcourseInfoByInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> 
+
+</div>
+<script>
+var datagrid;
+		var editRow=undefined;
+		var op;
+		var urls;//要执行的操作代替op属性
+		var flag;
+	$(function(){
+		
+		var statusObj=[{sid:1,sname:'不可用'},{sid:2,sname:'可用'}];
+		datagrid=$('#ucourse_info').datagrid({
+			url:'ucourse_getUcourseInfo',
+			/* queryParams:{op:"getUcourseInfo"}, */
+			fitColumns:true,
+			striped:true,
+			loading:"数据加载中",
+			pagination:true,
+			rownumbers:true,
+			sortName:'uNo',
+			sortOrder:'asc',
+			remoteSort:false,
+			columns:[[
+				{field:'uNo',title:'选择',width:100,align:'center',checkbox:true},
+				{field:'uName',title:'用户名',width:100,align:'center',sortable:true},
+				{field:'cName',title:'课程名',width:100,align:'center',sortable:true},
+				{field:'ucAttention',title:'是否关注',width:100,align:'center',
+					formatter: function(value,rowData,index){
+							
+							if(rowData.ucAttention==1){
+								return '未关注';
+							}else if(rowData.ucAttention==2){
+								return '已关注';
+							}
+						}
+				},
+				/* {field:'statisfy',title:'满意度',width:100,align:'center',sortable:true}, */
+				{field:'ucLearnstatus',title:'学习状态',width:100,align:'center',
+					formatter: function(value,rowData,index){
+							if(rowData.ucLearnstatus==2){
+								return '未学完';
+							}else if(rowData.ucLearnstatus==1){
+								return '已学完';
+							}
+						}
+				},
+				{field:'ucStatus',title:'状态',width:100,align:'center',editor:{type:"combobox",options:{
+					required:true,valueField:'sid',textField:'sname',data:statusObj}},
+					formatter:function(value,row,index){
+						for(var i=0;i<statusObj.length;i++){
+							if(statusObj[i].sid==value){
+								return statusObj[i].sname;
+							}
+						}
+						return value;
+					}
+				}
+			]],
+			toolbar:"#show_ucourse_info_find"
+		});
+	});
+	/*  模糊查询*/
+function findUcourseInfoByInfo(){
+	var uname=$.trim($("#show_ucourse_uname").val());
+	var cname=$.trim($("#show_ucourse_cname").val());
+	var guan=$.trim($("#guanzhu").val());
+		$('#ucourse_info').datagrid({
+			url:'ucourse_findUcourseByInfo',
+			queryParams:{uName:uname,cName:cname,ucAttention:guan}
+		});
+}
+/*修改的函数  */
+function changeUcourseInfoByInfo(){
+	var rows=datagrid.datagrid("getChecked");
+		if(rows.length==0){
+			$.messager.show({
+						title:'温馨提示',
+						msg:'请要选择您要修改的数据....',
+						timeout:2000,
+						showPosition:'slide'
+					});
+		}else{
+		if(rows.length>1){
+				$.messager.show({
+						title:'温馨提示',
+						msg:'请要选择您要修改一条的数据....',
+						timeout:2000,
+						showPosition:'slide'
+					});
+			}else {
+				 urls="ucourse_updateUcourseInfo";
+				/* op="updateUcourseInfo"; */
+				flag="修改";
+				if(editRow!=undefined){
+					datagrid.datagrid("rejectChanges");
+					datagrid.datagrid("endEdit",editRow);
+					editRow=undefined;
+				}else{
+					var index=datagrid.datagrid("getRowIndex",rows[0]);
+					datagrid.datagrid("updateRow",{index:index,row:rows[0]});
+					datagrid.datagrid("beginEdit",index);
+					editRow=index;
+				
+				}
+			} 
+			
+		}
+	}
+	/* 撤销操作 */
+function redoUcourseInfo(){
+	datagrid.datagrid("rejectChanges");//回滚自创建以来或子上次调用AcceptChanges,所有的变化数据
+	datagrid.datagrid("endEdit",editRow);//关闭当前正在编辑的行
+	editRow=undefined;
+		}
+	/* 保存信息 */
+	function saveUcourseInfoByInfo(){
+		datagrid.datagrid("endEdit",editRow);
+						var rows=datagrid.datagrid("getChanges")[0];
+						if(rows==undefined){
+							datagrid.datagrid("rejectChanges");
+							datagrid.datagrid("endEdit",editRow);
+							editRow=undefined;
+						}else{
+							/* rows["op"]=op; */
+							$.post(urls,rows,function(data){
+								console.info(data);
+								/* data=parseInt($.trim(data)); */
+								if(data==1){
+									$.messager.show({
+										title:'成功提示',
+										msg:'用户课程信息'+flag+'成功....',
+										timeout:2000,
+										showPosition:'slide'
+									});
+								}else{
+									$.messager.alert('失败提示','用户课程信息保存失败....','error');
+								}
+								rows=null;
+								datagrid.datagrid("reload");
+								editRow=undefined;
+								datagrid.datagrid("rejectChanges");
+								datagrid.datagrid("unselectAll");
+							});
+						}
+	}
+
+</script>
+			
+

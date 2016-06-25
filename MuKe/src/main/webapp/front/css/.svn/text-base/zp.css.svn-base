@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0px 0px;
+	padding:0px;
+}
+
+#main{
+	width:1349px;
+	background:#edeff0;
+	padding-top:20px;
+	overflow:hidden;
+}
+
+#left{
+	margin-left:20px;
+	float:left;
+	width:250px;
+	background:#fff;
+}
+#left ul li{
+	display:inline-block;
+	width:100%;
+	height:45px;
+	line-height:45px;
+	border-bottom:1px solid #ccc;
+	
+}
+
+#right{
+	float:left;
+	width:850px;
+	margin-left:60px;
+	line-height:40px;
+	background:#FFF;
+	
+}
+#left ul li:hover{
+	color:red;
+}

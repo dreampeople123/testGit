@@ -1,0 +1,270 @@
+<!--会员信息管理-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<table id="user_info" data-options="fit:true"></table>
+<div id="show_users_info_find" style="width:100%,text-align:left">&nbsp; 
+<!-- 	<a id="" class="l-btn l-btn-plain" href="javascript:tijiaoUserInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-edit l-btn-icon-left">提交审核</span>
+		</span>
+	</a> -->
+	<a id="" class="l-btn l-btn-plain" href="javascript:delUserInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-remove l-btn-icon-left">删除</span>
+		</span>
+	</a>
+	<span>用户名：</span><input type="text" name="title" id="show_users_uname" />
+	<span>身份：</span><select name="shengfen" id="shengfen" class="myinput">
+			<option value="-1">全部</option>
+			<option value="0">会员</option>
+			<option value="1">教师</option>
+			<option value="2">待审核</option>
+		</select>
+	<a href="javascript:findUsersInfoByInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> 
+</div>
+<!-- <link href="../css/bootstrap.css" type="text/css" rel="stylesheet"/> -->
+<style>
+	#xiangxi{
+		display:block;
+		margin-left:80px;
+		width:36px;
+		height:100%;
+		padding-left:14px;
+		text-decoration:none;
+		background:url('../easyui/images/searchbox_button.png') no-repeat center left;
+	}
+		#shenhe{
+		display:block;
+		margin-left:80px;
+		width:36px;
+		height:100%;
+		padding-left:14px;
+		text-decoration:none;
+		background:url('../easyui/images/searchbox_button.png') no-repeat center left;
+	}
+	.tousiang{
+		height:110px;
+		width:110px;
+		float:left;
+	}
+	.yongmi{
+		float:right;
+	}
+	.down{
+		float:left;
+	}
+</style>
+<script>
+/* 审核信息窗口关闭时 */
+$("#user_shenhe_teacher").dialog({  
+    onClose: function () {  
+    	$("video")[0].pause();
+    }  
+});  
+var datagrid;
+var editRow=undefined;
+var op;
+$(function(){
+datagrid=$('#user_info').datagrid({
+			url:'user_getPageUserInfo',
+			/* queryParams:{op:"getPageUserInfo"}, */
+			fitColumns:true,
+			striped:true,
+			loading:"数据加载中",
+			pagination:true,
+			rownumbers:true,
+			columns:[[
+				{field:'uNos',title:'选择',width:100,align:'center',checkbox:true},
+				{field:'uNo',title:'用户编号',width:100,align:'center',sortable:true},
+				{field:'uName',title:'姓名',width:100,align:'center'},
+				{field:'uTel',title:'手机',width:100,align:'center'},
+				{field:'uIsTeacher',title:'身份',width:100,align:'center', 
+					formatter:function(value,row,index){
+						 if (value == 0){
+                            return  '会员';
+                        } else if (value ==1){
+                            return  '教师';
+                        }else if(value ==2){
+                        	console.info(row.uNo);
+                           /* return '<select id="isTeacher'+row.uNo+'" class="easyui-combobox" name="dept"  style="width:100%; height:100%; display:block;  text-align:center;" ><option value="2">待审核</option><option value="0">审核不通过</option><option value="1">审核通过</option></select>'; */
+                        	return '<a id="shenhe" href="javascript:shenhe(\''+row.uNo+'\')">审核</a>';
+                        }
+						return value;
+					}
+				},
+				{field:'_operate',title:'操作',width:100,align:'center',
+					formatter: function(value,rowData,index){
+						return '<a id="xiangxi" href="javascript:showUserDetail(\''+rowData.uNo+'\')">详细</a>';
+					}
+				}
+			]],
+			toolbar:"#show_users_info_find"
+		});
+
+	});
+
+</script>
+
+
+<!-- 查看详细的用户信息 -->
+<div id="user_add_userInf" class="easyui-dialog" title="查看会员" style="height:420px; width:380px; margin-top:10px;" data-options="iconCls:'icon-tip',resizable:true,modal:true,closed:true">
+	<form action="" style="padding:20px;float:left ">
+		<div class="tousiang" id="user_pic_show_infos">
+			<img src="../images/wutou.png" width="100px" height="100px"  style=" margin-top:5px; margin-left:5px; "/>
+		</div>
+		<div class="yongmi">
+			<label>用户名：</label><input type="text" name="uname" id="user_name_show" class="myinput" readonly="readonly"/><br/><br/>
+			<label>密&nbsp;&nbsp;&nbsp;&nbsp;码：</label><input type="password" name="upwd" id="user_pwd_show" class="myinput" readonly="readonly"/><br/><br/>
+			<label>性&nbsp;&nbsp;&nbsp;&nbsp;别：</label><input type="text" name="sex" id="user_sex_show" class="myinput" readonly="readonly"/><br/><br/>
+		<!-- <label>邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</label><input type="text" name="uemail" id="user_uemail_show" class="myinput" readonly="readonly"/><br/><br/> -->
+		</div>
+		<div class="down">
+			<label>省份：</label><input type="text" name="sheng" id="user_sheng_show" style=" display:inline-block; height:100%; width:67px;" class="myinput" readonly="readonly"/>
+			<label>市：</label><input type="text" name="shi" id="user_shi_show" style=" display:inline-block; height:100%; width:67px;" class="myinput" readonly="readonly"/>
+			<label>县/区：</label><input type="text" name=xianqu id="user_xianqu_show" style=" display:inline-block; height:100%; width:67px;" class="myinput" readonly="readonly"/><br/><br/>
+			<!-- <label>职位：</label><input type="text" name="zhiwei" id="user_zhiwei_show" class="myinput" readonly="readonly"/><br/><br/> -->
+			<label>身份：</label><input type="text" name="role" id="user_role_show" class="myinput" readonly="readonly"/><br/><br/>
+			<label>电话：</label><input type="text" name="utel" id="user_utel_show" class="myinput" readonly="readonly"/><br/><br/>
+			<label>个性签名：</label><input type="text" name="qianmin" id="user_qianmin_show" class="myinput" readonly="readonly"/><br/><br/>
+		</div>
+	</form>
+</div>
+
+<div id="user_shenhe_teacher" class="easyui-dialog " title="教室信息审核" style="height:420px; width:380px; margin-top:10px; " data-options="iconCls:'icon-tip',resizable:true,modal:true,closed:true" onclose="closeshen()">
+	<form action=""  style="padding:20px;float:left ">
+		
+			<label >简介：</label><input type="text" name="jianjie" id="jianjie" class="form-control input-lg" readonly="readonly"  disabled/>
+			<br/><br/>
+			<label>真实姓名：</label><input type="text" name="realname" id="realname" class="myinput" readonly="readonly" disabled/><br/><br/>
+			<label>电话：</label><input type="text" name="dianhua" id="dianhua" class="myinput" readonly="readonly" disabled/><br/><br/>
+			<label>试讲视频：</label>	<!--此处结构为播放视屏../upload/shipin1.mp4-->
+        	 <video id="trymedia"  controls="ture" loop="loop"   height="100%" width="100%" preload="none"  >浏览器不支持</video>
+        	 <p id="tryp">没有试讲视频</p>
+        	 <button id="shenyes" class="btn btn-default" type="button"  value=""  onclick="javascript:sehen(1)">审核通过</button>&nbsp; &nbsp;<button  class="btn btn-default" type="button" onclick="javascript:sehen(0)">审核不通过</button> 
+	</form>
+</div>
+
+<script>
+/*审核的函数  */
+ function sehen(uIsTeachers){
+	var suno=$("#shenyes").val();
+	$.post("user_sehen",{uNo:suno,uIsTeacher:uIsTeachers},function(data){
+		data=parseInt($.trim(data));
+		if(data==1){
+			$("#user_shenhe_teacher").dialog("close");
+			$.messager.show({
+				title:'成功提示',
+				msg:'用户审核信息提交成功....',
+				timeout:2000,
+				showType:'slide'
+			});
+			datagrid.datagrid("reload");
+		}else{
+			$.messager.alert('失败提示','用户审核信息提交失败....','error');
+		}
+	});
+}
+
+	/*  删除用户信息*/
+	function delUserInfo(){
+		var rows=datagrid.datagrid("getChecked");
+		if(rows.length<=0){
+			$.messager.show({
+						title:'温馨提示',
+						msg:'请要选择您要修改的数据....',
+						timeout:2000,
+						showType:'slide'
+					});
+		}else{
+			$.messager.confirm('信息确认','您确定要删除选中的数据吗 ？',function(r){
+				if(r){
+					var unos="";
+					for(var i=0;i<rows.length-1;i++){
+						unos+=rows[i].uNo+",";
+					}
+					unos+=rows[i].uNo;
+					$.post("user_delUserInfo",{uNo:unos},function(data){
+						data=parseInt($.trim(data));
+						if(data>0){
+							$.messager.show({
+								title:'删除提示',
+								msg:'会员信息信息删除成功....',
+								timeout:2000,
+								showType:'slide'
+							});
+							datagrid.datagrid("reload");
+						}else{
+							$.messager.alert('失败提示','会员信息信息删除失败....','error');
+						}
+					});
+				}
+			});
+		}	
+	}
+	/* 审核应聘教师信息 */
+	function shenhe(uNo){
+		$("#user_shenhe_teacher").dialog("open");
+		console.info(uNo);
+		 $.post("user_findNewsByUno",{uNo:uNo},function(data){
+				var userss=data.rows[0];
+				$("#jianjie").val(userss.uSummary);
+				$("#realname").val(userss.uRealname);
+				$("#dianhua").val(userss.uTel);
+				$("#shenyes").val(userss.uNo);//向按钮中加载uno值
+				if(userss.uTry!=null&&userss.uTry!=""){
+						$("#trymedia").css("display","block");
+						$("#tryp").css("display","none");
+					$("#trymedia").attr("src","../"+userss.uTry);//设置视频路径，标签中不需要添加src属性
+					$("#trymedia").load();//video重新加载
+				}else{
+					$("#trymedia").css("display","none");
+					$("#tryp").css("display","block");
+				}
+			},"json");   
+	}
+
+
+	/* 模糊查询用户信息 */
+	function findUsersInfoByInfo(){
+		var usersna=$.trim($("#show_users_uname").val());
+		var shengfen=$.trim($("#shengfen").val());
+		$('#user_info').datagrid({
+			url:'user_findUsersInfoByInfo',
+			queryParams:{uName:usersna,uIsTeacher:shengfen}
+		});
+	}
+	/* 查看详细的用户信息 */
+	function showUserDetail(uno){
+		$("#user_add_userInf").dialog("open");
+		console.info(uno);
+		$.post("user_findNewsByUno",{uNo:uno},function(data){
+			console.info(data);
+			var userss=data.rows[0];
+			console.info(userss);
+			$("#user_name_show").val(userss.uName);
+			$("#user_pwd_show").val(userss.uPwd);
+			$("#user_sheng_show").val(userss.uAddress_prov);
+			$("#user_shi_show").val(userss.uAddress_city);
+			$("#user_xianqu_show").val(userss.uAddress_county);
+			$("#user_sex_show").val(userss.uSex);
+			/* $("#user_uemail_show").val(userss.email); */
+			/* $("#user_zhiwei_show").val(userss.posname); */
+			if(userss.uIsTeacher==0){
+				$("#user_role_show").val("会员");
+			}else if(userss.uIsTeacher==1){
+				$("#user_role_show").val("教师");
+			}
+			$("#user_utel_show").val(userss.uTel);
+			$("#user_qianmin_show").val(userss.uUsign);
+			 var str="";
+			var pics=userss.uPic.split(",");
+			for(var i=0;i<pics.length;i++){
+				if(pics[i]!=null&&pics[i]!=""){
+					str+="<img src='../"+pics[i]+"' width='100px' height='100px' style=' margin-top:5px; margin-left:5px;'/>&nbsp;";
+				}else{
+					str+="<img src='../images/wutou.png' width='100px' height='100px'  style=' margin-top:5px; margin-left:5px;'/>";
+				}
+			}
+			$("#user_pic_show_infos").html($(str)); 
+			},"json");
+		}
+</script>

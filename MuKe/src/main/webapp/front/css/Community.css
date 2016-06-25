@@ -1,0 +1,627 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0 auto;
+	padding:0;
+}
+
+#main{
+	width:1349px;
+	margin-top:20px;
+}
+
+.wenda-main{
+	/*左边*/
+	margin-top:30px;
+	width:840px;
+	margin-left:70px;
+	float:left;
+}
+
+.wenda-slider{
+	/*右边*/
+	width:280px;
+	margin-right:70px;
+	float:right;
+}
+
+/*全部回答...*/
+.wenda-tab{
+	padding-top:20px;
+	display:inline-block;
+	width:100%;
+	list-style:none;
+}
+
+.wenda-tab li{
+	line-height:40px;
+	padding-right:40px;
+	height:40px;
+	float:left;
+}
+
+.wenda-tab li a{
+	text-decoration:none;
+	color:#5e5e5e;
+	font-size:12px;
+}
+
+.wenda-tab li a:hover{
+	color:black;
+}
+
+.wenda-tab .tabactive a{
+	font-size:16px;
+	color:black;
+}
+
+/*最新...*/
+.wenda-nav{
+	height:41px;
+	width:100%;
+	background:#EDF1F2;
+	border-top:1px solid #CCC;
+}
+
+.wenda-nav .quealltab{
+	line-height:41px;
+	text-decoration:none;
+	padding-left:30px;
+	font-size:12px;
+	color:#787d82;
+}
+
+.wenda-nav .quealltab:hover{
+	color:black;
+}
+
+/*问题的div*/
+.wenda-listcon{
+	width:100%;
+	min-height:175px;
+	border-bottom:1px solid #CCC;
+}
+
+.headslider{
+	width:90px;
+	position:absolute;
+	left:70px;
+	margin-top:30px;
+}
+
+.headslider img{
+	display:inline-block;
+	width:44px;
+	height:44px;
+	border-radius:22px;
+	margin-left:25px;
+}
+
+.headslider .wenda-nickname{
+	display:inline-block;
+	width:100%;
+	text-align:center;
+	color:#787d82;
+	text-decoration:none;
+	font-size:13px;
+}
+
+.headslider .wenda-nickname:hover{
+	color:red;
+}
+
+.replynumber{
+	display:inline-block;
+	width:100px;
+	height:50px;
+	margin-top:30px;
+	float:right;
+}
+
+.replynumber .ys{
+	width:50px;
+	float:left;
+	text-align:center;
+	color:#57B33B;
+	cursor:pointer;
+	font-size:12px;
+	margin-left: 30px;
+}
+
+.number{
+	padding-bottom:6px;
+}
+
+.wendaslider{
+	width:720px;
+	height:auto;
+	margin-left:120px;
+}
+
+.wendaquetitle{
+	padding-top:30px;
+}
+
+.wendatitle{
+	text-decoration:none;
+	color:black;
+}
+
+.wendatitle:hover{
+	color:red;
+}
+
+.replycont{
+	padding-top:10px;
+}
+
+.replydes{
+	padding-top:6px;
+	padding-left:26px;
+	font-size:14px;
+	color:#5e5e5e;
+}
+
+.replydet img{
+	max-width: 50px;
+}
+
+.replydes a{
+	text-decoration:none;
+	color:black;
+}
+
+.replydes a:hover{
+	color:red;
+}
+
+.replymegfooter{
+	padding-left:26px;
+	padding-top:25px;
+	width:100%;
+	height:44px;
+}
+
+.wenda-time{
+	float:left;
+	padding-right:20px;
+	color:#5e5e5e;
+	height:24px;
+	line-height:24px;
+	font-size:12px;
+}
+
+.keyword-list{
+	float:left;
+}
+
+.keyword-list a{
+	display:inline-block;
+	height:20px;
+	line-height:20px;
+	font-size:12px;
+	text-decoration:none;
+	padding:0 5px 0 5px;
+	color:#787d82;
+	background:#EDF1F2;
+	margin-right:10px;
+}
+
+.keyword-list a:hover{
+	background:#CCC;
+}
+
+.formcourse{
+	color:#c8cdd2;
+	font-size:12px;
+	padding-left:20px;
+	text-decoration:none;
+}
+.formcourse:hover{
+	color:red;
+}
+
+/*首页*/
+.page{
+	padding-top:40px;
+	text-align:center;
+	height:40px;
+	width:100%;
+}
+
+.disabled_page{
+	color:#CCC;
+	font-size:16px;
+	padding-right:10px;
+}
+
+.page a{
+	display:inline-block;	width:20px;
+	height:29px;
+	line-height:30px;
+	font-size:16px;
+	padding-right:5px;
+	padding-left:5px;
+	color:#999;
+	text-decoration:none;
+}
+
+.page a:hover{
+	color:red;
+	border-bottom:1px solid red;
+}
+
+.page .active{
+	color:#FFF;
+	background:red;
+}
+
+.page .active:hover{
+	color:#FFF;
+	border-bottom:0px;
+}
+
+
+/*右边*/
+/*发新问题*/
+.r{
+	padding-top:30px;
+	width:280px;
+}
+
+.newques-btn{
+	display:inline-block;
+	width:100%;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	background:#CC0000;
+	text-decoration:none;
+	color:white;
+}
+
+/*慕容慕*/
+.user-info{
+	height:45px;
+	margin-top:20px;
+}
+
+.user-img{
+	float:left;
+	margin-right:10px;
+}
+#myimg{
+	display:inline-block;
+	width:40px;
+	height:40px;
+	border-radius:20px;
+}
+.username{
+	font-size:12px;
+	color:black;
+}
+
+.credit-count{
+	padding-top:5px;
+	font-size:12px;
+	text-decoration:none;
+	color:#CCC;
+}
+.credit-count:hover{
+	color:red;
+}
+
+/*提问 回复 关注*/
+.user-about{
+	height:21px;
+	padding:20px 0 16px 0;
+	margin-top:20px;
+	border-bottom:1px solid #ccc;
+	border-top:1px solid #ccc;
+	list-style:none;
+}
+
+.user-about li a{
+	text-decoration:none;
+	font-size:14px;
+	color:black;
+	height:20px;
+	width:32%;
+	text-align:center;
+	display:inline-block;
+	float:left;
+	border-right:1px solid #ccc;
+}
+
+.user-about li a:hover{
+	color:red;
+}
+
+.user-about #user_last{
+	border-right:0px;
+}
+
+/*我关注的标签*/
+.my-tags-box{
+	margin-top:30px;
+}
+
+.panel-heading{
+	height:60px;
+	line-height:70px;
+	border-bottom:1px solid #ccc;
+}
+
+/*搜索*/
+.tags-body{
+	width:100%;
+	height:75px;
+}
+
+.search-tags-ipt{
+	margin-top:20px;
+	padding:5px 10px 5px 37px;
+	width:232px;
+	height:28px;
+	line-height:28px;
+	border:1px solid #CCC;
+	font-size:16px;
+	color:#999;
+}
+
+.btn_tags{
+	background:url(../images/search.jpg) no-repeat center center;
+	width:16px;
+	height:16px;
+	border:0px;
+	cursor:pointer;
+	position:absolute;
+	margin-top:-26px;
+	margin-left:10px;
+}
+
+/*标签*/
+.panel-footer a{
+	display:inline-block;
+	height:26px;
+	text-decoration:none;
+	color:#787D82;
+	font-size:14px;
+	line-height:26px;
+	background:#EDF1F2;
+	margin-top:5px;
+	padding:0px 10px 0 10px;
+}
+
+.panel-footer a:hover{
+	color:black;
+	background:#CCC;
+}
+
+/*为你推荐*/
+.panel-heading{
+	margin-top:50px;
+}
+
+.panel-body ol li{
+	margin-top:20px;
+}
+
+.panel-body ol{
+	list-style:none;
+}
+
+.recom-ihd{
+	height:32px;
+}
+
+.tag-img{
+	float:left;
+}
+
+.tag-detail{
+	width:86px;
+	height:100%;
+	line-height:16px;
+	float:left;
+	padding-left:20px;
+}
+
+.tag-detail a{
+	display:inline-block;
+	width:76px;
+	color:black;
+	text-decoration:none;
+	font-size:14px;
+}
+
+.tag-detail a:hover{
+	color:red;
+}
+
+.tag-detail i{
+	font-style:normal;
+	font-size:12px;
+	color:#999;
+}
+
+.tag-will-fol{
+	display:inline-block;
+	width:40px;
+	height:24px;
+	font-size:12px;
+	color:#00B33B;
+	border:1px solid #00B33B;
+	text-align:center;
+	line-height:24px;
+	text-decoration:none;
+	margin-right:10px;
+	float:right;
+}
+
+.recom-ibd{
+	margin-top:13px;
+	color:#787d82;
+	line-height:19px;
+	max-height:38px;
+	overflow:hidden;
+	font-size:12px;
+	text-overflow:ellipsis;
+}
+
+/*热点内容*/
+.weekly-hot{
+	margin-top:10px;
+	list-style:none;
+}
+
+.weekly-hot li{
+	padding:10px 0 10px 0;
+	border-bottom:1px solid #CCC;
+	height:110px;
+}
+
+.hoticon{
+	display:inline-block;
+	border-radius:8px;
+	width:16px;
+	height:16px;
+	line-height:16px;
+	background:#C8CDD2;
+	font-size:12px;
+	color:white;
+	text-align:center;
+	font-style:normal;
+	font-weight:normal;
+	float:left;
+	margin-top:4px;
+}
+
+.hot0{
+	background:#CC0000;
+}
+
+.hot1{
+	background:#FF6E03;
+}
+
+.hot2{
+	background:#FF9C00;
+}
+
+.hottalk{
+	line-height:20px;
+	max-height:40px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	width:252px;
+	float:left;
+	color:#787d82;
+	text-decoration:none;
+	font-size:12px;
+	padding-left:10px;
+	margin-bottom:20px;
+}
+
+.hottalk:hover{
+	color:red;
+	text-decoration:underline;
+}
+
+.hot-bd{
+	width:256px;
+	height:22px;
+	margin-left:23px;
+}
+
+.list-tag{
+	display:inline-block;
+	height:100%;
+	line-height:22px;
+	background:#EDF1F2;
+	color:#787D82;
+	text-decoration:none;
+	font-size:14px;
+	padding:0 10px 0 10px;
+	float:left;
+	min-width: 34px;
+	text-align: center;
+}
+
+.list-tag:hover{
+	background:#ccc;
+	color:black;
+}
+
+.answer-follow{
+	width:110px;
+	height:18px;
+	float:right;
+	font-size:12px;
+	color:#B5B9BC;
+	margin-top:-26px;
+}
+
+/*一周回答*/
+.honormore{
+	float:right;
+	text-decoration:none;
+	font-size:14px;
+	color:#999;
+}
+
+.honormore:hover{
+	text-decoration:underline;
+	color:red;
+}
+
+.wenda-mkclasscon ul{
+	list-style:none;
+}
+
+.wenda-mkclasscon ul li{
+	margin-top:15px;
+	height:70px;
+	border-bottom:1px solid #CCC;
+}
+
+.wenda-mkclasscon ul li img{
+	display:inline-block;
+	width:40px;
+	height:40px;
+	border-radius:20px;
+}
+
+.roll-head{
+	float:left;
+}
+
+.rankingnickname{
+	padding-left:10px;
+	text-decoration:none;
+	font-size:14px;
+	color:black;
+	display:inline-block;
+	width:165px;
+}
+
+.rankingnickname:hover{
+	color:red;
+	text-decoration:underline;
+}
+
+.archieve{
+	padding-left:10px;
+	display:inline-block;
+	width:165px;
+	color:#999;
+	font-size:12px;
+}
+
+.adopt{
+	float:right;
+	font-size:12px;
+	color:green;
+	font-style:normal;
+	margin-top:-22px;
+}

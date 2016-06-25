@@ -1,0 +1,50 @@
+body{
+	background:url(../wallPictures.jpg) no-repeat center center;
+}
+
+#test{
+	background:#FFF;
+	width:300px;
+	height:350px;
+	opacity:0.3;
+	float:right;
+	margin:140px 100px 0 0;
+}
+	
+#login{
+	float:right;
+	position:absolute;
+	width:250px;
+	right:130px;
+	top:200px;
+	z-index:20;
+}
+	
+.myinput{
+	margin-bottom:20px;
+	margin-left:10px;
+	border:10px solid white;
+}
+
+#a{
+	float:left;
+}	
+#b{
+	margin-top:20px;
+	float:left;
+}
+#c{
+	float:left;
+}
+#mysub{
+	border:0px;
+	float:left;
+	width:100px;
+	height:40px;
+	margin-top:40px;
+	margin-left:70px;
+	cursor:pointer;
+	background: #00B33B;
+	color: white;
+	opacity:0.7;
+}

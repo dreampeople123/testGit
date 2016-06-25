@@ -1,0 +1,242 @@
+<!--会员信息管理-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<table id="user_info" data-options="fit:true"></table>
+<div id="show_users_info_find" style="width:100%,text-align:left">&nbsp; 
+
+	<a id="" class="l-btn l-btn-plain" href="javascript:tijiaoUserInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-edit l-btn-icon-left">提交审核</span>
+		</span>
+	</a>
+	<a id="" class="l-btn l-btn-plain" href="javascript:delUserInfo()" group="">
+		<span class="l-btn-left">
+			<span class="l-btn-text icon-remove l-btn-icon-left">删除</span>
+		</span>
+	</a>
+	<span>用户名：</span><input type="text" name="title" id="show_users_uname" />
+	<span>身份：</span><select name="shengfen" id="shengfen" class="myinput">
+			<option value="-1">全部</option>
+			<option value="0">会员</option>
+			<option value="1">教师</option>
+			<option value="2">待审核</option>
+		</select>
+	<a href="javascript:findUsersInfoByInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> 
+</div>
+<style>
+	#xiangxi{
+		display:block;
+		margin-left:80px;
+		width:36px;
+		height:100%;
+		padding-left:14px;
+		background:url('../easyui/images/searchbox_button.png') no-repeat center left;
+	}
+	.tousiang{
+		height:110px;
+		width:110px;
+		float:left;
+	}
+	.yongmi{
+		float:right;
+	}
+	.down{
+		float:left;
+	}
+</style>
+<script>
+var datagrid;
+var editRow=undefined;
+var op;
+$(function(){
+datagrid=$('#user_info').datagrid({
+			url:'../userServlet',
+			queryParams:{op:"getPageUserInfo"},
+			fitColumns:true,
+			striped:true,
+			loading:"数据加载中",
+			pagination:true,
+			rownumbers:true,
+			columns:[[
+				{field:'unos',title:'选择',width:100,align:'center',checkbox:true},
+				{field:'uno',title:'用户编号',width:100,align:'center',sortable:true},
+				{field:'uname',title:'姓名',width:100,align:'center'},
+				{field:'email',title:'邮箱',width:100,align:'center'},
+				{field:'isTeacher',title:'身份',width:100,align:'center', 
+					formatter:function(value,row,index){
+						 if (value == 0){
+                            return  '会员';
+                        } else if (value ==1){
+                            return  '教师';
+                        }else if(value ==2){
+                        	console.info(row.uno);
+                           return '<select id="isTeacher'+row.uno+'" class="easyui-combobox" name="dept"  style="width:100%; height:100%; display:block;  text-align:center;" ><option value="2">待审核</option><option value="0">审核不通过</option><option value="1">审核通过</option></select>';
+                        }
+						return value;
+					}
+				},
+				{field:'_operate',title:'操作',width:100,align:'center',
+					formatter: function(value,rowData,index){
+						return '<a id="xiangxi" href="javascript:showUserDetail(\''+rowData.uno+'\')">详细</a>';
+					}
+				}
+			]],
+			toolbar:"#show_users_info_find"
+		});
+
+	});
+
+</script>
+
+
+
+<div id="user_add_userInf" class="easyui-dialog" title="查看会员" style="height:420px; width:380px; margin-top:10px;" data-options="iconCls:'icon-add',resizable:true,modal:true,closed:true">
+	<form action="" style="padding:20px;float:left ">
+		<div class="tousiang" id="user_pic_show_infos">
+			<img src="../images/wutou.png" width="100px" height="100px"  style=" margin-top:5px; margin-left:5px; "/>
+		</div>
+		<div class="yongmi">
+			<label>用户名：</label><input type="text" name="uname" id="user_name_show" class="myinput" readonly="readonly"/><br/><br/>
+			<label>密&nbsp;&nbsp;&nbsp;&nbsp;码：</label><input type="password" name="upwd" id="user_pwd_show" class="myinput" readonly="readonly"/><br/><br/>
+			<label>性&nbsp;&nbsp;&nbsp;&nbsp;别：</label><input type="text" name="sex" id="user_sex_show" class="myinput" readonly="readonly"/><br/><br/>
+		<label>邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</label><input type="text" name="uemail" id="user_uemail_show" class="myinput" readonly="readonly"/><br/><br/>
+		</div>
+		<div class="down">
+			<label>省份：</label><input type="text" name="sheng" id="user_sheng_show" style=" display:inline-block; height:100%; width:67px;" class="myinput" readonly="readonly"/>
+			<label>市：</label><input type="text" name="shi" id="user_shi_show" style=" display:inline-block; height:100%; width:67px;" class="myinput" readonly="readonly"/>
+			<label>县/区：</label><input type="text" name=xianqu id="user_xianqu_show" style=" display:inline-block; height:100%; width:67px;" class="myinput" readonly="readonly"/><br/><br/>
+			<label>职位：</label><input type="text" name="zhiwei" id="user_zhiwei_show" class="myinput" readonly="readonly"/><br/><br/>
+			<label>身份：</label><input type="text" name="role" id="user_role_show" class="myinput" readonly="readonly"/><br/><br/>
+			<label>电话：</label><input type="text" name="utel" id="user_utel_show" class="myinput" readonly="readonly"/><br/><br/>
+			<label>个性签名：</label><input type="text" name="qianmin" id="user_qianmin_show" class="myinput" readonly="readonly"/><br/><br/>
+		</div>
+	</form>
+</div>
+
+<script>
+	function tijiaoUserInfo(){
+		var rows=datagrid.datagrid("getChecked");
+		if(rows==undefined){
+			$.messager.show({
+						title:'温馨提示',
+						msg:'请要选择您要提交的数据....',
+						timeout:2000,
+						showPosition:'slide'
+					});
+		}else{
+			if(rows.length>1){
+				$.messager.show({
+						title:'温馨提示',
+						msg:'请要选择您要提交一条的数据....',
+						timeout:2000,
+						showPosition:'slide'
+					});
+			}else {
+				if($("#isTeacher"+rows[0].uno).val()==""||$("#isTeacher"+rows[0].uno).val()==null){
+					$.messager.show({
+						title:'温馨提示',
+						msg:'此数据不需要提交....',
+						timeout:2000,
+						showPosition:'slide'
+					});
+				}else{
+					var unos=rows[0].uno;
+					var isTeacher=$("#isTeacher"+rows[0].uno).val();
+					if(isTeacher=="2"){
+						datagrid.datagrid("rejectChanges");
+					}else{
+						$.post("../userServlet",{op:"updateUserInfo",unos:unos,isTeacher:isTeacher},function(data){
+							data=parseInt($.trim(data));
+							if(data==1){
+								$.messager.show({
+									title:'成功提示',
+									msg:'会员信息信息提交成功....',
+									timeout:2000,
+									showType:'slide'
+								});
+								datagrid.datagrid("reload");
+							}else{
+								$.messager.alert('失败提示','会员信息提交失败....','error');
+							}
+						});
+					}
+				}
+			}
+		}	
+	}
+	function delUserInfo(){
+		var rows=datagrid.datagrid("getChecked");
+		if(rows.length<=0){
+			$.messager.show({
+						title:'温馨提示',
+						msg:'请要选择您要修改的数据....',
+						timeout:2000,
+						showType:'slide'
+					});
+		}else{
+			$.messager.confirm('信息确认','您确定要删除选中的数据吗 ？',function(r){
+				if(r){
+					var unos="";
+					for(var i=0;i<rows.length-1;i++){
+						unos+=rows[i].uno+",";
+					}
+					unos+=rows[i].uno;
+					$.post("../userServlet",{op:"delUserInfo",unos:unos},function(data){
+						data=parseInt($.trim(data));
+						if(data==1){
+							$.messager.show({
+								title:'删除提示',
+								msg:'会员信息信息删除成功....',
+								timeout:2000,
+								showType:'slide'
+							});
+							datagrid.datagrid("reload");
+						}else{
+							$.messager.alert('失败提示','会员信息信息删除失败....','error');
+						}
+					});
+				}
+			});
+		}	
+	}
+	function findUsersInfoByInfo(){
+		var usersna=$.trim($("#show_users_uname").val());
+		var shengfen=$.trim($("#shengfen").val());
+		$('#user_info').datagrid({
+			url:'../userServlet',
+			queryParams:{op:"findUsersInfoByInfo",usersna:usersna,shengfen:shengfen}
+		});
+	}
+	function showUserDetail(uno){
+		$("#user_add_userInf").dialog("open");
+		console.info(uno);
+		$.post("../userServlet",{op:"findNewsByUno",updateuno:uno},function(data){
+			console.info(data);
+			var userss=data.rows;
+			$("#user_name_show").val(userss.uname);
+			$("#user_pwd_show").val(userss.upwd);
+			$("#user_sheng_show").val(userss.address_prov);
+			$("#user_shi_show").val(userss.address_city);
+			$("#user_xianqu_show").val(userss.address_county);
+			$("#user_sex_show").val(userss.sex);
+			$("#user_uemail_show").val(userss.email);
+			$("#user_zhiwei_show").val(userss.posname);
+			if(userss.isTeacher==0){
+				$("#user_role_show").val("会员");
+			}else if(userss.isTeacher==1){
+				$("#user_role_show").val("教师");
+			}
+			$("#user_utel_show").val(userss.tel);
+			$("#user_qianmin_show").val(userss.usign);
+			var str="";
+			var pics=userss.pic.split(",");
+			for(var i=0;i<pics.length;i++){
+				if(pics[i]!=null&&pics[i]!=""){
+					str+="<img src='../"+pics[i]+"' width='100px' height='100px' style=' margin-top:5px; margin-left:5px;'/>&nbsp;";
+				}else{
+					str+="<img src='../images/wutou.png' width='100px' height='100px'  style=' margin-top:5px; margin-left:5px;'/>";
+				}
+			}
+			$("#user_pic_show_infos").html($(str));
+			},"json");
+		}
+</script>

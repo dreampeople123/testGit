@@ -1,0 +1,271 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0px;
+	padding:0px;
+}
+
+#header{
+	width:1349px;
+	height:60px;
+	background:#000000;
+}
+
+#header #logo{
+	float:left;
+}
+
+#header #logo a{
+	display:inline-block;
+	width:140px;
+	height:60px;
+	text-align:center;
+	color:#FFF;
+	line-height:60px;
+	text-decoration:none;
+}
+
+#header #choose{
+	width:320px;
+	height:60px;
+	line-height:60px;
+	float:left;
+}
+
+#header ul{
+	list-style:none;
+}
+
+#header #choose ul li{
+	float:left;
+}
+
+#header #choose ul li a{
+	font-size:14px;
+	color:#787D82;
+	background:#000;
+	text-decoration:none;
+	text-align:center;
+	display:inline-block;
+	width:80px;
+	height:59px;
+}
+
+#header #choose ul li a:hover{
+	font-size:16px;
+	color:#FFF;
+	background:#363C41;
+}
+
+#header #app{
+	height:100%;
+	float:right;
+}
+#header #app:hover{
+	background:#363C41;
+}
+
+#header #app a{
+	text-decoration:none;
+	display:inline-block;
+	margin-top:20px;
+	color:#656E73;
+}
+
+/*顶部的登录*/
+#header #login{
+	float:right;
+	padding-right:20px;
+}
+
+#header #login ul li{
+	list-style:none;
+	float:left;
+}
+
+#js-signin-btn,#js-signup-btn{
+	text-align:center;
+	text-decoration:none;
+	color:#656E73;
+	display:inline-block;
+	height:60px;
+	line-height:60px;
+	width:60px;
+	font-size:15px;
+}
+#js-signin-btn:hover{
+	background:#CC0000;
+	font-size:18px;
+	color:#FFF;
+}
+#js-signup-btn:hover{
+	background:#363C41;
+	font-size:18px;
+	color:#FFF;
+}
+
+/*顶部的头像*/
+#login_head_img{
+	width:32px;
+	height:32px;
+	padding:14px 10px 0 50px;
+	cursor:pointer;
+}
+
+#self_card{
+	display:none;
+	width:300px;
+	height:278px;
+	background:url(../images/card_bg.png) no-repeat;
+	top:60px;
+	right:20px;
+	position:absolute;
+	z-index:1000;
+	box-shadow:0 20px 20px #bbb;
+}
+#self_card ul li{
+	list-style:none;
+	display:inline-block;
+	width:100%;
+}
+
+#card_img{
+	height:104px;
+}
+#card_img #user_pic{
+	margin-top:24px;
+	margin-left:10px;
+	float:left;
+	overflow: hidden;
+	border-radius:32px;
+	width: 64px;
+	height: 64px;
+}
+#card_img span{
+	display:inline-block;
+	width:70%;
+	margin-top:20px;
+	margin-left:10px;
+	font-size:18px;
+	color:white;
+}
+#card_img a{
+	margin-left:10px;
+	text-decoration:none;
+	color:white;
+}
+
+#card_mya{
+	height:60px;
+	border-bottom:1px solid #ccc;
+}
+
+#card_mya a{
+	text-decoration:none;
+	color:black;
+	font-size:14px;
+	font-weight:bold;
+	display:inline-block;
+	width:40%;
+	padding-left:20px;
+	height:20px;
+	margin-top:20px;	
+}
+#card_mya a:hover{
+	color:red;
+}
+#mya_active{
+	border-right:1px solid #ccc;
+}
+
+#card_course{
+	height:70px;
+	line-height:70px;
+	border-bottom:1px solid #ccc;
+}
+#card_course span{
+	font-size:12px;
+	color:#666;
+	display:inline-block;
+	width:60%;
+	text-align:center;
+}
+#card_course a{
+	float:right;
+	padding-right:10px;
+	text-decoration:none;
+	font-size:12px;
+	color:red;
+}
+
+#card_set a{
+	text-decoration:none;
+	font-size:12px;
+	color:#666;
+	margin-top:10px;
+}
+#card_set a:hover{
+	color:red;
+}
+.set1{
+	float:left;
+	padding-left:10px;
+}
+.set2{
+	float:right;
+	padding-right:10px;
+}
+
+/*顶部的搜索*/
+#header #search_out{
+	background:#363C41;
+	width:244px;
+	height:30px;
+	float:right;
+	margin-top:15px;
+	margin-right:40px;
+}
+#header #search_over{
+	background:#FFF;
+	width:244px;
+	height:30px;
+	float:right;
+	margin-top:15px;
+	margin-right:40px;
+}
+
+#search-input-out{
+	padding:5px 10px 5px 10px;
+	width:192px;
+	height:20px;
+	background:#363C41;
+	border:0px;
+	color:#787D82;
+	float:left;
+}
+#search-input-over{
+	padding:5px 10px 5px 10px;
+	width:192px;
+	height:20px;
+	background:#FFF;
+	border:0px;
+	color:#787D82;
+	float:left;
+}
+
+#search_btn_out{
+	background:url(../images/serach_gray.jpg) no-repeat center center;
+	cursor:pointer;
+	border:0px;
+	width:30px;
+	height:30px;
+	float:right;
+}
+#search_btn_over{
+	background:url(../images/search_white.jpg) no-repeat center center;
+	cursor:pointer;
+	border:0px;
+	width:30px;
+	height:30px;
+	float:right;
+}
